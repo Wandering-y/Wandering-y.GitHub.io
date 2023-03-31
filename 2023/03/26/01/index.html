@@ -26,6 +26,7 @@
 <meta property="og:image" content="http://example.com/2023/03/26/01/vim%E5%BC%82%E5%B8%B8%E9%80%80%E5%87%BA.png">
 <meta property="og:image" content="http://example.com/2023/03/26/01/index.php.swp.png">
 <meta property="og:image" content="http://example.com/2023/03/26/01/button.png">
+<meta property="og:image" content="http://example.com/2023/03/26/01/sql.png">
 <meta property="og:image" content="http://example.com/2023/03/26/01/robots1.png">
 <meta property="og:image" content="http://example.com/2023/03/26/01/robots2.png">
 <meta property="og:image" content="http://example.com/2023/03/26/01/php2.1.png">
@@ -34,7 +35,7 @@
 <meta property="og:image" content="http://example.com/2023/03/26/01/index1.png">
 <meta property="og:image" content="http://example.com/2023/03/26/01/index2.png">
 <meta property="article:published_time" content="2023-03-26T08:30:17.000Z">
-<meta property="article:modified_time" content="2023-03-31T09:14:53.382Z">
+<meta property="article:modified_time" content="2023-03-31T09:19:32.060Z">
 <meta property="article:author" content="想有双手">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2023/03/26/01/vim%E5%BC%82%E5%B8%B8%E9%80%80%E5%87%BA.png">
@@ -230,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.4k 字
         
       </span>
     
@@ -241,7 +242,7 @@
         
         
         
-          11 分钟
+          12 分钟
         
       </span>
     
@@ -297,22 +298,24 @@
 <h3 id="2-一个不能按的按钮"><a href="#2-一个不能按的按钮" class="headerlink" title="2.一个不能按的按钮"></a>2.一个不能按的按钮</h3><p>F12看网页源码，发现button被禁用了，把disabled删掉</p>
 <p><img src="button.png" srcset="/img/loading.gif" lazyload alt="button"></p>
 <hr>
-<h3 id="3-robots协议"><a href="#3-robots协议" class="headerlink" title="3.robots协议"></a>3.robots协议</h3><p>直接在url上访问robots.txt</p>
+<h3 id="3-sql-get"><a href="#3-sql-get" class="headerlink" title="3.sql(get)"></a>3.sql(get)</h3><p>明显的get注入，burp intruder模块1-10000爆破，得到2333，访问</p>
+<p><img src="sql.png" srcset="/img/loading.gif" lazyload alt="sql"></p>
+<h3 id="4-robots协议"><a href="#4-robots协议" class="headerlink" title="4.robots协议"></a>4.robots协议</h3><p>直接在url上访问robots.txt</p>
 <p><img src="robots1.png" srcset="/img/loading.gif" lazyload alt="robots1"></p>
 <p>发现&#x2F;fl0g.php是不被允许的，直接访问</p>
 <p><img src="robots2.png" srcset="/img/loading.gif" lazyload alt="robots2"></p>
-<h3 id="4-PHP2"><a href="#4-PHP2" class="headerlink" title="4.PHP2"></a>4.PHP2</h3><p>进去显示你能认证这个网站吗，直接御剑扫后台，发现&#x2F;index.phps</p>
+<h3 id="5-PHP2"><a href="#5-PHP2" class="headerlink" title="5.PHP2"></a>5.PHP2</h3><p>进去显示你能认证这个网站吗，直接御剑扫后台，发现&#x2F;index.phps</p>
 <p><img src="php2.1.png" srcset="/img/loading.gif" lazyload alt="php2"></p>
 <p>分析PHP代码，发现函数对传参进行了url解码，那我们需要对admin进行编码，由于浏览器本身会解码一次，所以我们编码两次，用burp编码模块，GET传参得到flag</p>
 <p><img src="php2.2.png" srcset="/img/loading.gif" lazyload alt="php2.2"></p>
-<h3 id="5-PHP"><a href="#5-PHP" class="headerlink" title="5.PHP"></a>5.PHP</h3><p>a和b都是get传参，a&#x3D;&#x3D;0是弱类型比较，值一样即可，无需类型相同，所以a随便传一个字符串如a&#x3D;’0’，a&#x3D;’0a’，flag1就得到了；b&gt;1234，但b不能是数字或者数字字符串，所以输b&#x3D;12345b，当’12345b’与 1234比较时，字符串先转换成数值12345， 再和1234比较12345&gt;1234，为真，输出flag2</p>
+<h3 id="6-PHP"><a href="#6-PHP" class="headerlink" title="6.PHP"></a>6.PHP</h3><p>a和b都是get传参，a&#x3D;&#x3D;0是弱类型比较，值一样即可，无需类型相同，所以a随便传一个字符串如a&#x3D;’0’，a&#x3D;’0a’，flag1就得到了；b&gt;1234，但b不能是数字或者数字字符串，所以输b&#x3D;12345b，当’12345b’与 1234比较时，字符串先转换成数值12345， 再和1234比较12345&gt;1234，为真，输出flag2</p>
 <p><img src="%E8%BF%98%E6%98%AFPHP.png" srcset="/img/loading.gif" lazyload alt="还是PHP"></p>
-<h3 id="6-想想初始页面"><a href="#6-想想初始页面" class="headerlink" title="6.想想初始页面"></a>6.想想初始页面</h3><p>想到index.php，访问，F12查看一波</p>
+<h3 id="7-想想初始页面"><a href="#7-想想初始页面" class="headerlink" title="7.想想初始页面"></a>7.想想初始页面</h3><p>想到index.php，访问，F12查看一波</p>
 <p><img src="index1.png" srcset="/img/loading.gif" lazyload alt="index"></p>
 <p>发现302跳转到location：1.php，说明index是存在的，burp重放模块</p>
 <p><img src="index2.png" srcset="/img/loading.gif" lazyload alt="index2"></p>
 <p>说flag被隐藏了，但flag就藏在包里第五行<del>差点没看见&#x3D; &#x3D;</del></p>
-<h3 id="7-easyupload"><a href="#7-easyupload" class="headerlink" title="7.easyupload"></a>7.easyupload</h3><p>文件上传，php被拦，上传图片马，依然被拦，说明“php”很可能被检测出来，所以这里用短标签绕过：</p>
+<h3 id="8-easyupload"><a href="#8-easyupload" class="headerlink" title="8.easyupload"></a>8.easyupload</h3><p>文件上传，php被拦，上传图片马，依然被拦，说明“php”很可能被检测出来，所以这里用短标签绕过：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?=</span><span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]);<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>上传成功但无法解析，想到分布式配置文件.htaccess，被拦，上传.user.ini以解析php，内容为</p>
