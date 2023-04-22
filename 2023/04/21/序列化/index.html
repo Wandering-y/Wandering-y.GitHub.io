@@ -24,7 +24,7 @@
 <meta property="og:description" content="在我看完这篇文章后，我终于懂了一些关于序列化的知识： serialize() 函数会检查类中是否存在魔术方法比如 __sleep()。如果存在，则该方法会优先被调用，然后才执行序列化操作。 先看代码： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Person&amp;#">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-21T08:47:44.000Z">
-<meta property="article:modified_time" content="2023-04-21T09:41:16.260Z">
+<meta property="article:modified_time" content="2023-04-22T11:55:48.446Z">
 <meta property="article:author" content="想有双手">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="序列化">
@@ -298,8 +298,10 @@
 
 <p>可以看到，性别这一变量为空并且age为40</p>
 <p>总结一下调用顺序：</p>
-<p>$$<br>serialize()\longrightarrow sleep()<br>$$</p>
-<p>$$<br>unserialize()\longrightarrow wakeup()<br>$$</p>
+<div align="center">serialize()   -------> sleep()</div>
+
+<div align="center">unserialize()    -------> wakeup()</div>
+
 
                 
               </div>
