@@ -24,7 +24,7 @@
 <meta property="og:description" content="在我看完这篇文章后，我终于懂了一些关于序列化的知识： serialize() 函数会检查类中是否存在魔术方法比如 __sleep()。如果存在，则该方法会优先被调用，然后才执行序列化操作。 先看代码： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Person&amp;#">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-21T08:47:44.000Z">
-<meta property="article:modified_time" content="2023-04-22T11:55:48.446Z">
+<meta property="article:modified_time" content="2023-04-24T02:22:58.136Z">
 <meta property="article:author" content="想有双手">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="序列化">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          1.7k 字
         
       </span>
     
@@ -288,8 +288,9 @@
 <p>会输出：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">O:<span class="hljs-number">6</span>:<span class="hljs-string">&quot;Person&quot;</span>:<span class="hljs-number">2</span>:&#123;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;name&quot;</span>;s:<span class="hljs-number">4</span>:<span class="hljs-string">&quot;张三&quot;</span>;s:<span class="hljs-number">3</span>:<span class="hljs-string">&quot;age&quot;</span>;i:<span class="hljs-number">20</span>;&#125;<br></code></pre></td></tr></table></figure>
 
-<p>他们分别表示</p>
-<p>这里我们可以看到，创建类对象时，是有“男”这一属性的，但由于调用了 __sleep()，这一属性消失了，当我最后使用：</p>
+<p>他们分别表示：<br>变量类型:类名长度:类名:属性数量：{属性类型:属性名长度:属性名；属性值类型:属性值长度:属性值内容}</p>
+<p>O（object）表示对象，因为$p1是类Person的一个对象</p>
+<p>这里我们可以看到，创建类对象时，是有“男”这一属性的，但由于调用了 __sleep()，这一属性消失了，并且序列化后的属性数量由3变为了2，而当我最后使用：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$p2</span>-&gt;<span class="hljs-title function_ invoke__">say</span>();<br></code></pre></td></tr></table></figure>
 
 <p>由于$p2是反序列化后的$p1，而反序列化时又会调用wakeup函数，它修改了age的值</p>
