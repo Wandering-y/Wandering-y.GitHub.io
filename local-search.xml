@@ -4,6 +4,29 @@
   
   
   <entry>
+    <title>bugkuweb</title>
+    <link href="/2023/05/05/bugkuweb/"/>
+    <url>/2023/05/05/bugkuweb/</url>
+    
+    <content type="html"><![CDATA[<h3 id="1-滑稽"><a href="#1-滑稽" class="headerlink" title="1.滑稽"></a>1.滑稽</h3><p>F12查看即可，又是考视力&#x3D; &#x3D;</p><p><img src="%E6%BB%91%E7%A8%BD.png" alt="滑稽"></p><hr><h3 id="2-计算器"><a href="#2-计算器" class="headerlink" title="2.计算器"></a>2.计算器</h3><p>小学算数，答案是111，但是输入1之后就输入不进去了，直接改前端代码</p><p><img src="%E8%AE%A1%E7%AE%97%E5%99%A8.png" alt="计算器"></p><p>把maxlength删了或者把1改大一点就行了，提交</p><hr><h3 id="3-GET"><a href="#3-GET" class="headerlink" title="3.GET"></a>3.GET</h3><p><img src="GET1.png" alt="GET"></p><p>简单的代码审计，直接GET传参</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">?<span class="hljs-attribute">what</span>=flag<br></code></pre></td></tr></table></figure><p><img src="GET2.png" alt="GET2"></p><hr><h3 id="4-Simple-SSTI-1"><a href="#4-Simple-SSTI-1" class="headerlink" title="4.Simple_SSTI_1"></a>4.Simple_SSTI_1</h3><p>页面提示我需要绕过一个叫flag的参数，然后F12说：你知道，在烧瓶里，我们经常设置一个secret_key变量。 </p><p>![Simple_SSTI_1.1]Simple_SSTI_1.1.png)</p><p>flask的模板注入：（注意：这里的SECRET_KEY需要大写）</p><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml">？flag=</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">config.SECRET_KEY</span>&#125;&#125;</span><br></code></pre></td></tr></table></figure><p><img src="Simple_SSTI_1.2.png" alt="Simple_SSTI_1.2"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>CTF</category>
+      
+      <category>bugku</category>
+      
+      <category>Web</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>难度3</title>
     <link href="/2023/04/27/web03/"/>
     <url>/2023/04/27/web03/</url>
@@ -15,7 +38,9 @@
       
       <category>CTF</category>
       
-      <category>Misc</category>
+      <category>攻防世界</category>
+      
+      <category>Web</category>
       
     </categories>
     
@@ -35,6 +60,8 @@
     <categories>
       
       <category>CTF</category>
+      
+      <category>攻防世界</category>
       
       <category>Misc</category>
       
@@ -78,6 +105,8 @@
       
       <category>CTF</category>
       
+      <category>攻防世界</category>
+      
       <category>Web</category>
       
     </categories>
@@ -118,26 +147,7 @@
       
       <category>CTF</category>
       
-      <category>Web</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>分类简介</title>
-    <link href="/2023/03/26/web%E5%BA%8F%E8%A8%80/"/>
-    <url>/2023/03/26/web%E5%BA%8F%E8%A8%80/</url>
-    
-    <content type="html"><![CDATA[<p>此分类为攻防世界web方向笔记</p>]]></content>
-    
-    
-    <categories>
-      
-      <category>CTF</category>
+      <category>攻防世界</category>
       
       <category>Web</category>
       
