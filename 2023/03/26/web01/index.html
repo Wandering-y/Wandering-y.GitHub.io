@@ -16,15 +16,16 @@
   <meta name="author" content="想有双手">
   <meta name="keywords" content="">
   
-    <meta name="description" content="先记一个学校CTF赛题管理员错误使用了vim使得异常退出 根据vim的缓存原理，访问.index.php.swp 1url：http:&#x2F;&#x2F;47.92.27.98:21655&#x2F;.index.php.swp   访问url，下载缓存文件，记事本打开，ctrl+f “flag”  get~  攻防世界1.你知道index.php的备份文件名吗？直接在url后加index.php.bak，下载备份文件，记">
+    <meta name="description" content="先记一个学校CTF赛题管理员错误使用了vim使得异常退出 根据vim的缓存原理，访问.index.php.swp 1url：http:&#x2F;&#x2F;47.92.27.98:21655&#x2F;.index.php.swp   访问url，下载缓存文件，记事本打开，ctrl+f “flag”  get~  再记一个忘了哪做的题了代码审计：md5加密相同但本身不同，想到数组绕过，尝试flag.php发现页面空白，查看源">
 <meta property="og:type" content="article">
 <meta property="og:title" content="难度1">
 <meta property="og:url" content="http://example.com/2023/03/26/web01/index.html">
 <meta property="og:site_name" content="ldy的站点~">
-<meta property="og:description" content="先记一个学校CTF赛题管理员错误使用了vim使得异常退出 根据vim的缓存原理，访问.index.php.swp 1url：http:&#x2F;&#x2F;47.92.27.98:21655&#x2F;.index.php.swp   访问url，下载缓存文件，记事本打开，ctrl+f “flag”  get~  攻防世界1.你知道index.php的备份文件名吗？直接在url后加index.php.bak，下载备份文件，记">
+<meta property="og:description" content="先记一个学校CTF赛题管理员错误使用了vim使得异常退出 根据vim的缓存原理，访问.index.php.swp 1url：http:&#x2F;&#x2F;47.92.27.98:21655&#x2F;.index.php.swp   访问url，下载缓存文件，记事本打开，ctrl+f “flag”  get~  再记一个忘了哪做的题了代码审计：md5加密相同但本身不同，想到数组绕过，尝试flag.php发现页面空白，查看源">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2023/03/26/web01/vim%E5%BC%82%E5%B8%B8%E9%80%80%E5%87%BA.png">
 <meta property="og:image" content="http://example.com/2023/03/26/web01/index.php.swp.png">
+<meta property="og:image" content="http://example.com/2023/03/26/web01/%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87.png">
 <meta property="og:image" content="http://example.com/2023/03/26/web01/button.png">
 <meta property="og:image" content="http://example.com/2023/03/26/web01/sql.png">
 <meta property="og:image" content="http://example.com/2023/03/26/web01/robots1.png">
@@ -43,7 +44,7 @@
 <meta property="og:image" content="http://example.com/2023/03/26/web01/file_include2.png">
 <meta property="og:image" content="http://example.com/2023/03/26/web01/unseping1.png">
 <meta property="article:published_time" content="2023-03-26T08:30:17.000Z">
-<meta property="article:modified_time" content="2023-05-05T11:57:28.769Z">
+<meta property="article:modified_time" content="2023-05-06T13:23:52.254Z">
 <meta property="article:author" content="想有双手">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2023/03/26/web01/vim%E5%BC%82%E5%B8%B8%E9%80%80%E5%87%BA.png">
@@ -250,7 +251,7 @@
         
         
         
-          26 分钟
+          27 分钟
         
       </span>
     
@@ -299,6 +300,9 @@
 
 <p><img src="index.php.swp.png" srcset="/img/loading.gif" lazyload alt="index.php.swp"></p>
 <p>访问url，下载缓存文件，记事本打开，ctrl+f “flag”  get~</p>
+<hr>
+<h3 id="再记一个忘了哪做的题了"><a href="#再记一个忘了哪做的题了" class="headerlink" title="再记一个忘了哪做的题了"></a>再记一个忘了哪做的题了</h3><p>代码审计：md5加密相同但本身不同，想到数组绕过，尝试flag.php发现页面空白，查看源码得到flag</p>
+<p><img src="%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87.png" srcset="/img/loading.gif" lazyload alt="数组绕过"></p>
 <hr>
 <h2 id="攻防世界"><a href="#攻防世界" class="headerlink" title="攻防世界"></a><strong>攻防世界</strong></h2><h3 id="1-你知道index-php的备份文件名吗？"><a href="#1-你知道index-php的备份文件名吗？" class="headerlink" title="1.你知道index.php的备份文件名吗？"></a>1.你知道index.php的备份文件名吗？</h3><p>直接在url后加index.php.bak，下载备份文件，记事本打开</p>
 <p>index.php.bak(backup备份)</p>
@@ -381,7 +385,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">?filename=php:<span class="hljs-comment">//filter/convert.iconv.UTF-8.UCS-2/resource=check.php</span><br></code></pre></td></tr></table></figure>
 
 <p>页面多了一行代码，给出了过滤情况</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;filename&quot;</span>])&#123; <span class="hljs-variable">$preg_match_username</span> = <span class="hljs-string">&#x27;return preg_match(&quot;/base|be|encode|print|zlib|quoted|write|rot13|read|string/i&quot;, $_GET[&quot;filename&quot;]);&#x27;</span>; <span class="hljs-keyword">if</span> (<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$preg_match_username</span>)) &#123;        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;do not hack!&quot;</span>);    &#125; &#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">if</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&quot;filename&quot;</span>])<br>&#123; <br>	<span class="hljs-variable">$preg_match_username</span> = <span class="hljs-string">&#x27;return preg_match(&quot;/base|be|encode|print|zlib|quoted|write|rot13|read|string/i&quot;, $_GET[&quot;filename&quot;]);&#x27;</span>; <br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$preg_match_username</span>))<br>&#123;        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;do not hack!&quot;</span>);    <br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 
 
