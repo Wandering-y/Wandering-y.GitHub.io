@@ -36,8 +36,12 @@
 <meta property="og:image" content="http://example.com/2023/04/22/misc01/2017_Dating_in_Singapore1.png">
 <meta property="og:image" content="http://example.com/2023/04/22/misc01/simple_transfer1.png">
 <meta property="og:image" content="http://example.com/2023/04/22/misc01/simple_transfer2.png">
+<meta property="og:image" content="http://example.com/2023/04/22/misc01/challenge1.png">
+<meta property="og:image" content="http://example.com/2023/04/22/misc01/challenge2.png">
+<meta property="og:image" content="http://example.com/2023/04/22/misc01/challenge3.png">
+<meta property="og:image" content="http://example.com/2023/04/22/misc01/challenge5.png">
 <meta property="article:published_time" content="2023-04-22T03:38:40.000Z">
-<meta property="article:modified_time" content="2023-05-05T11:57:21.148Z">
+<meta property="article:modified_time" content="2023-05-13T09:55:07.149Z">
 <meta property="article:author" content="想有双手">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2023/04/22/misc01/misc_1.1.png">
@@ -233,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.5k 字
         
       </span>
     
@@ -244,7 +248,7 @@
         
         
         
-          26 分钟
+          30 分钟
         
       </span>
     
@@ -371,6 +375,26 @@
 <p><img src="simple_transfer1.png" srcset="/img/loading.gif" lazyload alt="simple_transfer1"></p>
 <p>然后打开文件夹：</p>
 <p><img src="simple_transfer2.png" srcset="/img/loading.gif" lazyload alt="simple_transfer2"></p>
+<hr>
+<h3 id="7-流量分析1"><a href="#7-流量分析1" class="headerlink" title="7.流量分析1"></a>7.流量分析1</h3><p>题目描述: </p>
+<p>流量分析，你知道这堆流量做了什么事情吗，你能恢复出来flag吗？</p>
+<p>文件名的challenge，很好，非常有挑战性：</p>
+<p><img src="challenge1.png" srcset="/img/loading.gif" lazyload alt="challenge1"></p>
+<p>第四条流量一下就吸引住了我，追踪TCP流看一下：</p>
+<p><img src="challenge2.png" srcset="/img/loading.gif" lazyload alt="challenge2"></p>
+<p>嗯？sql注入？</p>
+<p>扔到burp里smart decode一下：</p>
+<p><img src="challenge3.png" srcset="/img/loading.gif" lazyload alt="challenge3"></p>
+<p>bool盲注，这里直接过滤：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">ip.<span class="hljs-attribute">addr</span>==192.168.43.109 &amp;&amp; ip.<span class="hljs-attribute">addr</span>==39.105.136.196 &amp;&amp;http.request.uri contains<span class="hljs-string">&quot;substr&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>刚刚分析得到，如果if判断成功，那页面延迟三秒返回，这里我们应该关注一下时间，可以看到11秒到14秒刚好三秒，说明判断成功了，去看看</p>
+<p><img src="challenge5.png" srcset="/img/loading.gif" lazyload alt="challenge5"></p>
+<p>ascii码是102，查表得知是’f’</p>
+<p>看大佬wp得知，有一个过滤的命令可以过滤出延迟大于3秒的http数据包</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">frame.time_delta&gt;<span class="hljs-number">3</span><span class="hljs-meta">&amp;&amp;http</span><br></code></pre></td></tr></table></figure>
+
+<p>那就方便多了，一个一个对照ascii码表就行了，这里最后一个字符是1，并不是}，不过前面已经有{了，这里我们手动加上就好了。</p>
 
                 
               </div>

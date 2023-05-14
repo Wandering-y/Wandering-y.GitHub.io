@@ -37,8 +37,17 @@
 <meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/eval2.png">
 <meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/%E7%BD%91%E7%AB%99%E8%A2%AB%E9%BB%91.png">
 <meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%981.png">
+<meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%982.png">
+<meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%983.png">
+<meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/%E5%8F%98%E9%87%8F1.png">
+<meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/game11.png">
+<meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/game12.png">
+<meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/game13.png">
+<meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/game14.png">
+<meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/bp1.png">
+<meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/bp2.png">
 <meta property="article:published_time" content="2023-05-05T11:59:25.000Z">
-<meta property="article:modified_time" content="2023-05-09T12:03:04.007Z">
+<meta property="article:modified_time" content="2023-05-13T06:53:27.377Z">
 <meta property="article:author" content="想有双手">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2023/05/05/bugkuweb/%E6%BB%91%E7%A8%BD.png">
@@ -234,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          3.8k 字
         
       </span>
     
@@ -245,7 +254,7 @@
         
         
         
-          17 分钟
+          33 分钟
         
       </span>
     
@@ -308,6 +317,9 @@
 
 <p><img src="Simple_SSTI_1.2.png" srcset="/img/loading.gif" lazyload alt="Simple_SSTI_1.2"></p>
 <p>flask使用jinjia2渲染引擎进行网页渲染，当处理不得当，未进行语句过滤，用户输入，会导致渲染出恶意代码，形成注入</p>
+<p>注：SSTI 就是服务器端模板注入（Server-Side Template  Injection）当前使用的一些框架，比如python的flask，php的tp，java的spring等一般都采用成熟的的MVC的模式，用户的输入先进入Controller控制器，然后根据请求类型和请求的指令发送给对应Model业务模型进行业务逻辑判断，数据库存取，最后把结果返回给View视图层，经过模板渲染展示给用户。</p>
+<p>漏洞成因就是服务端接收了用户的恶意输入以后，未经任何处理就将其作为 Web  应用模板内容的一部分，模板引擎在进行目标编译渲染的过程中，执行了用户插入的可以破坏模板的语句，因而可能导致了敏感信息泄露、代码执行、GetShell 等问题。其影响范围主要取决于模版引擎的复杂性。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bmjoker/p/13508538.html">详见</a></p>
 <hr>
 <h3 id="5-POST"><a href="#5-POST" class="headerlink" title="5.POST"></a>5.POST</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$what</span>=<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;what&#x27;</span>];<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$what</span>;<br><span class="hljs-keyword">if</span>(<span class="hljs-variable">$what</span>==<span class="hljs-string">&#x27;flag&#x27;</span>)<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&#x27;flag&#123;****&#125;&#x27;</span>;<br></code></pre></td></tr></table></figure>
 
@@ -361,7 +373,49 @@
 <h3 id="12-本地管理员"><a href="#12-本地管理员" class="headerlink" title="12.本地管理员"></a>12.本地管理员</h3><p>打开页面是这样的：</p>
 <p><img src="%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%981.png" srcset="/img/loading.gif" lazyload alt="本地管理员1"></p>
 <p>试试弱口令，页面回显是“**IP禁止访问，请联系本地管理员登陆，IP已被记录.**”</p>
-<p>看样子要改ip</p>
+<p>看样子要改ip：X-Forwarded-For:127.0.0.1</p>
+<p>发过去之后提示：<strong>Invalid credentials! Please try again!</strong></p>
+<p>应该是密码错了，F12看一下，发现了一串字符，应该是base64编码</p>
+<p><img src="%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%982.png" srcset="/img/loading.gif" lazyload alt="本地管理员2"></p>
+<p> dGVzdDEyMw&#x3D;&#x3D; </p>
+<p>burp解码一下：是test123，这应该是密码，提交试试</p>
+<p><img src="%E6%9C%AC%E5%9C%B0%E7%AE%A1%E7%90%86%E5%91%983.png" srcset="/img/loading.gif" lazyload alt="本地管理员3"></p>
+<hr>
+<h3 id="13-变量1"><a href="#13-变量1" class="headerlink" title="13.变量1"></a>13.变量1</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php">flag In the variable ! <br><span class="hljs-meta">&lt;?php</span>  <br><span class="hljs-title function_ invoke__">error_reporting</span>(<span class="hljs-number">0</span>);<br><span class="hljs-keyword">include</span> <span class="hljs-string">&quot;flag1.php&quot;</span>;<br><span class="hljs-title function_ invoke__">highlight_file</span>(__file__);<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;args&#x27;</span>]))&#123;<br>    <span class="hljs-variable">$args</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;args&#x27;</span>];<br>    <span class="hljs-keyword">if</span>(!<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&quot;/^\w+$/&quot;</span>,<span class="hljs-variable">$args</span>))&#123; <span class="hljs-comment">// // 这个正则表达式的意思是匹配任意 [A-Za-z0-9_] 的字符，就是任意大小写字母和0到9以及下划线组成</span><br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&quot;args error!&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">eval</span>(<span class="hljs-string">&quot;var_dump($<span class="hljs-subst">$args</span>);&quot;</span>);<br>&#125;<br><span class="hljs-meta">?&gt;</span> <br></code></pre></td></tr></table></figure>
+
+<p>先学一下：</p>
+<p>isset()函数用于检测变量是否已设置并且非 NULL。</p>
+<p>prep_match: 用于执行一个正则表达式匹配。</p>
+<p>error_reporting(0)关闭错误显示。</p>
+<p>还是老规矩，先看看全局变量，虽然不让传’$’,但是在var_dump()函数中给出了‘$’，还是挺有意思的：</p>
+<p><img src="%E5%8F%98%E9%87%8F1.png" srcset="/img/loading.gif" lazyload alt="变量1"></p>
+<hr>
+<h3 id="14-Simple-SSTI-2"><a href="#14-Simple-SSTI-2" class="headerlink" title="14.Simple_SSTI_2"></a>14.Simple_SSTI_2</h3><hr>
+<h3 id="15-Flask-FileUpload"><a href="#15-Flask-FileUpload" class="headerlink" title="15.Flask_FileUpload"></a>15.Flask_FileUpload</h3><hr>
+<h3 id="16-game1"><a href="#16-game1" class="headerlink" title="16.game1"></a>16.game1</h3><p>让我玩游戏，先玩两把<del>摸个鱼</del>，然后看了看源码，没啥收获，直接在游戏结束时抓包，修改score的值，但是即使我改的了很高的分数，依然是失败</p>
+<p><img src="game11.png" srcset="/img/loading.gif" lazyload alt="game1"></p>
+<p>那就没这么简单了，看了一下大佬的wp,给出的思路是：说明有其他的参数来验证分数的真实性；这个参数可能是 sign或者可能在 cookie里。</p>
+<p><img src="game12.png" srcset="/img/loading.gif" lazyload alt="game2"></p>
+<p>很明显，当分数不同时不同的包差距在于 score和 sign</p>
+<p>对比sign发现 sign是由 zM + xxx + &#x3D;&#x3D; 构成</p>
+<p>zM是很好看出来的，等号那有点难看，那好办，去base64解码看看就知道了，MjU&#x3D;解密出来是25，MjU&#x3D;&#x3D;出来是25&#x3D;，所以后面俩等号是固定的</p>
+<p>那就好办了，把分数和sign同时改高就行了，这里我改成9999：</p>
+<p><img src="game13.png" srcset="/img/loading.gif" lazyload alt="game3"></p>
+<p>这里我还试了一下单改sign，发现不行，说明两个参数是同时校验的。</p>
+<p>做完之后突然想到能不能用intruder同时暴破两个地方，答案是肯定的，我写了个脚本，给出了300-1000之间的数字，然后为了实验成功，我在最后加了9999，intruder选择Pitchfork模式，Payload Sets选择Custom iterator，在Payload Processing选择Add，选base64加密，也能成功：</p>
+<p><img src="game14.png" srcset="/img/loading.gif" lazyload alt="game14"></p>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>1.游戏类的一般都是通过修改分数来的，要嘛改高（999999) ,要嘛改低（-999999) </p>
+<p>2.控制分数的参数可能不止一个，如果有加密的就得尝试解密。一般就多试几次，找到因分数不同而改变的参数，然后对该参数进行分析</p>
+<hr>
+<h3 id="17-bp"><a href="#17-bp" class="headerlink" title="17.bp"></a>17.bp</h3><p>提示:密码top1000？z?????</p>
+<p>TOP1000的字典跑一下，没区别</p>
+<p><img src="bp1.png" srcset="/img/loading.gif" lazyload alt="bp1"></p>
+<p>发现每个包都有一段js代码，这时需要用到Intruder中的Grep-Match功能：该功能可以帮我们分析Response中是否含有给定字符串。</p>
+<p>Intruder模块Ootions，打开Grep-Extract</p>
+<p>Add一条code: ‘bugku10000’</p>
+<p><img src="bp2.png" srcset="/img/loading.gif" lazyload alt="bp2"></p>
+<p>zxc123应该就是密码了，登录即可。</p>
+<hr>
 
                 
               </div>
