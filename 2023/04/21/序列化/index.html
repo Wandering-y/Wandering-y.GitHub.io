@@ -24,7 +24,7 @@
 <meta property="og:description" content="在我看完这篇文章后，我终于懂了一些关于序列化的知识： serialize() 函数会检查类中是否存在魔术方法比如 __sleep()。如果存在，则该方法会优先被调用，然后才执行序列化操作。 先看代码： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class Person&amp;#">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-21T08:47:44.000Z">
-<meta property="article:modified_time" content="2023-04-24T02:22:58.136Z">
+<meta property="article:modified_time" content="2023-06-20T05:56:18.088Z">
 <meta property="article:author" content="想有双手">
 <meta property="article:tag" content="PHP">
 <meta property="article:tag" content="序列化">
@@ -232,7 +232,7 @@
         
         
         
-          14 分钟
+          15 分钟
         
       </span>
     
@@ -298,7 +298,8 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php">我的名字叫：张三 性别： 我的年龄是：<span class="hljs-number">40</span><br></code></pre></td></tr></table></figure>
 
 <p>可以看到，性别这一变量为空并且age为40</p>
-<p>总结一下调用顺序：</p>
+<p>当私有成员序列化时: \x00 + [私有成员所在类名] + \x00 [变量名]</p>
+<p>总结一下调用顺序</p>
 <div align="center">serialize()   -------> sleep()</div>
 
 <div align="center">unserialize()    -------> wakeup()</div>
