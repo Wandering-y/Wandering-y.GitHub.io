@@ -16,48 +16,49 @@
   <meta name="author" content="想有双手">
   <meta name="keywords" content="">
   
-    <meta name="description" content="layout: linuxtitle: find提权date: 2023-08-13 17:03:25tags:  Linux find提权  DC-1靶场渗透0x01 环境搭建本次环境为NAT下 攻击机为kali，IP：192.168.86.129 靶机镜像下载 用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了  目标：总共有五个flag，但最终目标是在 root 的主目">
+    <meta name="description" content="DC-1靶场渗透0x01 环境搭建本次环境为NAT下 攻击机为kali，IP：192.168.86.129 靶机镜像下载 用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了  目标：总共有五个flag，但最终目标是在 root 的主目录中查找并读取flag。您甚至不需要是 root 用户即可执行此操作，但是，您将需要 root 权限。 0x02 信息收集1.扫描192.168">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ldy的站点~">
-<meta property="og:url" content="http://example.com/2023/08/13/DC-1/index.html">
+<meta property="og:title" content="DC-1">
+<meta property="og:url" content="http://example.com/2023/08/17/DC-1/index.html">
 <meta property="og:site_name" content="ldy的站点~">
-<meta property="og:description" content="layout: linuxtitle: find提权date: 2023-08-13 17:03:25tags:  Linux find提权  DC-1靶场渗透0x01 环境搭建本次环境为NAT下 攻击机为kali，IP：192.168.86.129 靶机镜像下载 用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了  目标：总共有五个flag，但最终目标是在 root 的主目">
+<meta property="og:description" content="DC-1靶场渗透0x01 环境搭建本次环境为NAT下 攻击机为kali，IP：192.168.86.129 靶机镜像下载 用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了  目标：总共有五个flag，但最终目标是在 root 的主目录中查找并读取flag。您甚至不需要是 root 用户即可执行此操作，但是，您将需要 root 权限。 0x02 信息收集1.扫描192.168">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/1.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/2.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/3.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/4.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/5.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/6.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/7.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/8.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/9.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/10.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/11.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/12.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/13.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/14.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/15.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/16.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/17.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/18.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/19.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/20.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/21.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/22.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/23.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/6.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/25.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/26.png">
-<meta property="article:published_time" content="2023-08-13T09:03:25.092Z">
-<meta property="article:modified_time" content="2023-08-17T07:25:37.305Z">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/1.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/2.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/3.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/4.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/5.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/6.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/7.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/8.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/9.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/10.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/11.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/12.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/13.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/14.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/15.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/16.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/17.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/18.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/19.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/20.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/21.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/22.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/23.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/6.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/25.png">
+<meta property="og:image" content="http://example.com/2023/08/17/DC-1/26.png">
+<meta property="article:published_time" content="2023-08-17T07:36:35.000Z">
+<meta property="article:modified_time" content="2023-08-17T07:40:22.516Z">
 <meta property="article:author" content="想有双手">
+<meta property="article:tag" content="find提权">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2023/08/13/DC-1/1.png">
+<meta name="twitter:image" content="http://example.com/2023/08/17/DC-1/1.png">
   
   
   
-  <title>ldy的站点~</title>
+  <title>DC-1 - ldy的站点~</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -223,7 +224,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="DC-1"></span>
           
         </div>
 
@@ -234,8 +235,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-13 17:03" pubdate>
-          2023年8月13日 下午
+        <time datetime="2023-08-17 15:36" pubdate>
+          2023年8月17日 下午
         </time>
       </span>
     
@@ -246,7 +247,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          4k 字
         
       </span>
     
@@ -295,17 +296,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">DC-1</h1>
             
             
               <div class="markdown-body">
                 
-                <p>layout: linux<br>title: find提权<br>date: 2023-08-13 17:03:25<br>tags:</p>
-<ul>
-<li>Linux</li>
-<li>find提权</li>
-</ul>
-<h1 id="DC-1靶场渗透"><a href="#DC-1靶场渗透" class="headerlink" title="DC-1靶场渗透"></a>DC-1靶场渗透</h1><h2 id="0x01-环境搭建"><a href="#0x01-环境搭建" class="headerlink" title="0x01 环境搭建"></a>0x01 环境搭建</h2><p>本次环境为NAT下</p>
+                <h1 id="DC-1靶场渗透"><a href="#DC-1靶场渗透" class="headerlink" title="DC-1靶场渗透"></a>DC-1靶场渗透</h1><h2 id="0x01-环境搭建"><a href="#0x01-环境搭建" class="headerlink" title="0x01 环境搭建"></a>0x01 环境搭建</h2><p>本次环境为NAT下</p>
 <p>攻击机为kali，IP：192.168.86.129</p>
 <p>靶机<a target="_blank" rel="noopener" href="https://download.vulnhub.com/dc/DC-1.zip">镜像下载</a></p>
 <p>用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了</p>
@@ -485,6 +481,34 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/vulnhub/" class="category-chain-item">vulnhub</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/find%E6%8F%90%E6%9D%83/">#find提权</a>
+      
+    </div>
   
 </div>
 
@@ -494,8 +518,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/2023/08/13/DC-1/</div>
+      <div>DC-1</div>
+      <div>http://example.com/2023/08/17/DC-1/</div>
     </div>
     <div class="license-meta">
       
@@ -507,7 +531,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月13日</div>
+          <div>2023年8月17日</div>
         </div>
       
       
