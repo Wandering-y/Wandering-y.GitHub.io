@@ -16,12 +16,12 @@
   <meta name="author" content="想有双手">
   <meta name="keywords" content="">
   
-    <meta name="description" content="DC-1靶场渗透0x01 环境搭建本次环境为NAT下 攻击机为kali，IP：192.168.86.129 靶机镜像下载， 用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了  目标：总共有五个flag，但最终目标是在 root 的主目录中查找并读取flag。您甚至不需要是 root 用户即可执行此操作，但是，您将需要 root 权限。 0x02 信息收集1.扫描192.16">
+    <meta name="description" content="layout: linuxtitle: find提权date: 2023-08-13 17:03:25tags:  Linux find提权  DC-1靶场渗透0x01 环境搭建本次环境为NAT下 攻击机为kali，IP：192.168.86.129 靶机镜像下载 用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了  目标：总共有五个flag，但最终目标是在 root 的主目">
 <meta property="og:type" content="article">
-<meta property="og:title" content="find提权">
+<meta property="og:title" content="ldy的站点~">
 <meta property="og:url" content="http://example.com/2023/08/13/DC-1/index.html">
 <meta property="og:site_name" content="ldy的站点~">
-<meta property="og:description" content="DC-1靶场渗透0x01 环境搭建本次环境为NAT下 攻击机为kali，IP：192.168.86.129 靶机镜像下载， 用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了  目标：总共有五个flag，但最终目标是在 root 的主目录中查找并读取flag。您甚至不需要是 root 用户即可执行此操作，但是，您将需要 root 权限。 0x02 信息收集1.扫描192.16">
+<meta property="og:description" content="layout: linuxtitle: find提权date: 2023-08-13 17:03:25tags:  Linux find提权  DC-1靶场渗透0x01 环境搭建本次环境为NAT下 攻击机为kali，IP：192.168.86.129 靶机镜像下载 用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了  目标：总共有五个flag，但最终目标是在 root 的主目">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2023/08/13/DC-1/1.png">
 <meta property="og:image" content="http://example.com/2023/08/13/DC-1/2.png">
@@ -33,24 +33,31 @@
 <meta property="og:image" content="http://example.com/2023/08/13/DC-1/8.png">
 <meta property="og:image" content="http://example.com/2023/08/13/DC-1/9.png">
 <meta property="og:image" content="http://example.com/2023/08/13/DC-1/10.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/Blog/blog/source_posts/DC-1/11.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/11.png">
 <meta property="og:image" content="http://example.com/2023/08/13/DC-1/12.png">
 <meta property="og:image" content="http://example.com/2023/08/13/DC-1/13.png">
 <meta property="og:image" content="http://example.com/2023/08/13/DC-1/14.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/4.png">
-<meta property="og:image" content="http://example.com/2023/08/13/DC-1/5.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/15.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/16.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/17.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/18.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/19.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/20.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/21.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/22.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/23.png">
 <meta property="og:image" content="http://example.com/2023/08/13/DC-1/6.png">
-<meta property="article:published_time" content="2023-08-13T09:03:25.000Z">
-<meta property="article:modified_time" content="2023-08-16T12:31:09.073Z">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/25.png">
+<meta property="og:image" content="http://example.com/2023/08/13/DC-1/26.png">
+<meta property="article:published_time" content="2023-08-13T09:03:25.092Z">
+<meta property="article:modified_time" content="2023-08-17T07:25:37.305Z">
 <meta property="article:author" content="想有双手">
-<meta property="article:tag" content="Linux">
-<meta property="article:tag" content="find提权">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2023/08/13/DC-1/1.png">
   
   
   
-  <title>find提权 - ldy的站点~</title>
+  <title>ldy的站点~</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -216,7 +223,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="find提权"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -239,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          4.1k 字
         
       </span>
     
@@ -250,7 +257,7 @@
         
         
         
-          21 分钟
+          34 分钟
         
       </span>
     
@@ -288,25 +295,30 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">find提权</h1>
+            <h1 style="display: none"></h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="DC-1靶场渗透"><a href="#DC-1靶场渗透" class="headerlink" title="DC-1靶场渗透"></a>DC-1靶场渗透</h2><h3 id="0x01-环境搭建"><a href="#0x01-环境搭建" class="headerlink" title="0x01 环境搭建"></a>0x01 环境搭建</h3><p>本次环境为NAT下</p>
+                <p>layout: linux<br>title: find提权<br>date: 2023-08-13 17:03:25<br>tags:</p>
+<ul>
+<li>Linux</li>
+<li>find提权</li>
+</ul>
+<h1 id="DC-1靶场渗透"><a href="#DC-1靶场渗透" class="headerlink" title="DC-1靶场渗透"></a>DC-1靶场渗透</h1><h2 id="0x01-环境搭建"><a href="#0x01-环境搭建" class="headerlink" title="0x01 环境搭建"></a>0x01 环境搭建</h2><p>本次环境为NAT下</p>
 <p>攻击机为kali，IP：192.168.86.129</p>
-<p>靶机<a target="_blank" rel="noopener" href="https://download.vulnhub.com/dc/DC-1.zip">镜像下载，</a></p>
+<p>靶机<a target="_blank" rel="noopener" href="https://download.vulnhub.com/dc/DC-1.zip">镜像下载</a></p>
 <p>用vmware打开即可，会提示导入失败，点重试就行，打开到此界面就ok了</p>
 <p><img src="1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
 <p>目标：总共有五个flag，但最终目标是在 root 的主目录中查找并读取flag。您甚至不需要是 root 用户即可执行此操作，但是，您将需要 root 权限。</p>
-<h3 id="0x02-信息收集"><a href="#0x02-信息收集" class="headerlink" title="0x02 信息收集"></a>0x02 信息收集</h3><h4 id="1-扫描192-168-86-0网段下存活主机"><a href="#1-扫描192-168-86-0网段下存活主机" class="headerlink" title="1.扫描192.168.86.0网段下存活主机"></a>1.扫描192.168.86.0网段下存活主机</h4><p>kali下使用<strong>arp-scan -l</strong>命令查看同网段下存活的主机</p>
+<h2 id="0x02-信息收集"><a href="#0x02-信息收集" class="headerlink" title="0x02 信息收集"></a>0x02 信息收集</h2><h3 id="1-扫描192-168-86-0网段下存活主机"><a href="#1-扫描192-168-86-0网段下存活主机" class="headerlink" title="1.扫描192.168.86.0网段下存活主机"></a>1.扫描192.168.86.0网段下存活主机</h3><p>kali下使用<strong>arp-scan -l</strong>命令查看同网段下存活的主机</p>
 <p><img src="2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
 <p>这里也可以使用nmap</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sP <span class="hljs-number">192</span>.<span class="hljs-number">168</span>.<span class="hljs-number">86</span>.*<br><span class="hljs-attribute">nmap</span> -sP <span class="hljs-number">192.168.86.0</span>/<span class="hljs-number">24</span>   //这种方式可以指定掩码位数<br></code></pre></td></tr></table></figure>
 
 <p>也可以使用<strong>netdiscover -i eth0</strong>命令，但是有点慢</p>
 <p>.1是我的主机，.2是网关，254是啥没搞明白，那只能是192.168.86.164了，或者查看DC-1的mac地址，也能确定</p>
-<h4 id="2-探测开放端口"><a href="#2-探测开放端口" class="headerlink" title="2.探测开放端口"></a>2.探测开放端口</h4><p>这里使用nmap</p>
+<h3 id="2-探测开放端口"><a href="#2-探测开放端口" class="headerlink" title="2.探测开放端口"></a>2.探测开放端口</h3><p>这里使用nmap</p>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">nmap</span> -sS <span class="hljs-number">192.168.86.164</span><br></code></pre></td></tr></table></figure>
 
 <ul>
@@ -314,15 +326,15 @@
 </ul>
 <p><img src="3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
 <p>可以看到，22和80是开放的，应该是突破口</p>
-<h4 id="3-访问web页面"><a href="#3-访问web页面" class="headerlink" title="3.访问web页面"></a>3.访问web页面</h4><p><img src="4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<h3 id="3-访问web页面"><a href="#3-访问web页面" class="headerlink" title="3.访问web页面"></a>3.访问web页面</h3><p><img src="4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
 <p>通过插件可以看到，网站的cms是Drupal 7</p>
 <p>这里可以用御剑扫一下目录，有robots.txt，index.php和install.php，用处不大</p>
 <p>也可以用goby等等扫一下，这里goby给出了一个sq注入(CVE-2014-3704)</p>
-<h3 id="0x03-渗透"><a href="#0x03-渗透" class="headerlink" title="0x03 渗透"></a>0x03 渗透</h3><h4 id="1-寻找切入点"><a href="#1-寻找切入点" class="headerlink" title="1.寻找切入点"></a>1.寻找切入点</h4><p>有cms肯定从cms下手，打开kali的msfconsole模块，寻找Drupal相关exp</p>
+<h2 id="0x03-渗透"><a href="#0x03-渗透" class="headerlink" title="0x03 渗透"></a>0x03 渗透</h2><h3 id="1-寻找切入点"><a href="#1-寻找切入点" class="headerlink" title="1.寻找切入点"></a>1.寻找切入点</h3><p>有cms肯定从cms下手，打开kali的msfconsole模块，寻找Drupal相关exp</p>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">search drupal</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
-<h4 id="2-漏洞利用"><a href="#2-漏洞利用" class="headerlink" title="2.漏洞利用"></a>2.漏洞利用</h4><p>选新且rank高的</p>
+<h3 id="2-漏洞利用"><a href="#2-漏洞利用" class="headerlink" title="2.漏洞利用"></a>2.漏洞利用</h3><p>选新且rank高的</p>
 <figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-keyword">use</span> exploit/unix/webapp/drupal_drupalgeddon2      <span class="hljs-comment">//选exp</span><br><span class="hljs-keyword">show</span> options                                      <span class="hljs-comment">//查看选项</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
@@ -344,7 +356,7 @@
 <p>先看一下当前路径pwd(Print Working Directory)，然后看看根目录，但是并没有flag，直接看当前目录下的文件，发现flag1.txt</p>
 <p><img src="10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
 <p>打开看看</p>
-<p><img src="Blog\blog\source_posts\DC-1\11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<p><img src="11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
 <p><strong>每一个好的CMS都需要一个配置文件-你也是</strong><br>提示配置文件，网上找drupal配置文件位置</p>
 <p>作为一个<del>高端</del>的<del>大黑客</del>，<del>我</del>是不可能一点一点进入路径的：</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs matlab"><span class="hljs-built_in">cat</span> `<span class="hljs-built_in">find</span> / -name settings.php`<br></code></pre></td></tr></table></figure>
@@ -353,14 +365,90 @@
 <p>蛮力和字典攻击不是获得访问的唯一方法(您将需要访问)。您可以使用这些凭据做什么？</p>
 <p>还给了mysql的用户：dbuser和密码：R0ck3t</p>
 <p>应该是要我们拿到数据库管理员的权限</p>
-<h4 id="3-渗透数据库"><a href="#3-渗透数据库" class="headerlink" title="3.渗透数据库"></a>3.渗透数据库</h4><p>登录看看</p>
+<h3 id="3-渗透数据库"><a href="#3-渗透数据库" class="headerlink" title="3.渗透数据库"></a>3.渗透数据库</h3><p>登录看看</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">mysql -u dbuser -<span class="hljs-selector-tag">p</span><br></code></pre></td></tr></table></figure>
 
 <p><img src="13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
 <p>drupal 框架默认的用户表就是 <strong>user</strong>表，所以在选定数据库后，直接查users表</p>
 <p><img src="14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
-<p>有admin的账户和密码，drupal常用的密码加密方式是MD5格式，但是自从 7.0之后，因为安全性的问题将加密方式改成了hash加密，这里使用的应该是自定义的加密方式。</p>
-<h3 id="Linux-find提权"><a href="#Linux-find提权" class="headerlink" title="Linux find提权"></a>Linux find提权</h3><h4 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h4><h5 id="Linux文件普通权限"><a href="#Linux文件普通权限" class="headerlink" title="Linux文件普通权限"></a>Linux文件普通权限</h5><p>r(read)读，数字表示：4</p>
+<p>有admin的账户和密码</p>
+<p>drupal 5、6都是用MD5加密的，但是自从 7.0之后，因为安全性的问题将加密方式改成了hash加密SHA-512(SHA2)，这里使用的应该是自定义的加密方式。</p>
+<p>由于前面提示，暴破是不可行的。两个思路，要不再新建一个管理员账户，drupal7版本在有个SQL注入的漏洞，可以添加一个admin权限的用户，适用版本7.31以下，可以在msf找一下这个工具</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">searchsploit drupal</span><br></code></pre></td></tr></table></figure>
+
+<p>找到Add Admin User的python脚本，然后查看一下脚本路径</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">searchsploit</span> <span class="hljs-number">34992</span>.py -p    <span class="hljs-comment">#searchsploit通过搜索关键词找到需要的漏洞，可以理解为一个离线的漏洞库</span><br></code></pre></td></tr></table></figure>
+
+<p>可以通过访问url下载脚本使用</p>
+<p>要不把现有的admin账户的密码改了，找到加密文件，**&#x2F;var&#x2F;www&#x2F;scripts&#x2F;password-hash.sh**，打开发现是php写的</p>
+<p>注：linux中.sh文件是脚本文件,一般都是bash脚本。</p>
+<p>执行命令，希望把密码改成wander，用脚本给出加密后的密码</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">php <span class="hljs-regexp">/var/</span>www<span class="hljs-regexp">/scripts/</span>password-hash.sh wander<br></code></pre></td></tr></table></figure>
+
+<p><img src="15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<p>看一下当前用户权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">show grants;<br></code></pre></td></tr></table></figure>
+
+<p><img src="16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<p>All&#x2F;All Privileges代表全局或者全数据库对象级别的所有权限，改两个账户的密码不在话下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mysql">update users set pass=&quot;$S$DrPc841eKyKs6OiNj0UhxUAubyhahOtqVn9U4WGPhLF6Hoho8ms9&quot; where name=&quot;admin&quot; or name=&quot;Fred&quot;;<br></code></pre></td></tr></table></figure>
+
+<p><img src="17.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<p>密码全改了，去web端登陆一下</p>
+<p><img src="18.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<p>在content界面找到了flag3，perms是指权限相关的东西，-exec是<code>find</code>命令的一个选项。flag3提示要看&#x2F;etc&#x2F;shadow文件，但只有root才能查看，并且还是加密后的密文，提权看也不一定能看出来密码，所以换个思路</p>
+<p>我们渗透测试获取shell之后，这三个文件必看：&#x2F;etc&#x2F;passwd, &#x2F;etc&#x2F;group和&#x2F;etc&#x2F;shadow</p>
+<p>果然有所收获，在&#x2F;etc&#x2F;passwd中找到了flag4这个用户</p>
+<p><img src="19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<p>去flag4用户的目录下看看，发现有flag4.txt，打开看看</p>
+<p><img src="20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<p><strong>Can you use this same method to find or access the flag in root?</strong></p>
+<p><strong>Probably. But perhaps it’s not that easy.  Or maybe it is?</strong></p>
+<p>“你能用同样的方法找到或接触到root下的flag吗”</p>
+<p>“可能吧，但也许这并不容易。谁知道呢”</p>
+<p>不管了，先<del>梭哈</del></p>
+<p>用hydra暴破一下flag4的用户</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">hydra</span> <span class="hljs-number">192.168.86.164</span> ssh -l flag4 -P ./top1000.txt -V -f<br></code></pre></td></tr></table></figure>
+
+<p><img src="21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">l</td>
+<td>指定登陆用户名</td>
+</tr>
+<tr>
+<td align="left">L</td>
+<td>用户名字典</td>
+</tr>
+<tr>
+<td align="left">p</td>
+<td>指定密码</td>
+</tr>
+<tr>
+<td align="left">P</td>
+<td>密码字典</td>
+</tr>
+<tr>
+<td align="left">V</td>
+<td>显示每一组user&#x2F;password情况</td>
+</tr>
+<tr>
+<td align="left">f</td>
+<td>暴破成功停止暴破</td>
+</tr>
+</tbody></table>
+<p>拿到密码orange，刚好22端口开放，可以</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">ssh <span class="hljs-variable">&lt;username&gt;</span><span class="hljs-meta">@&lt;服务器ip&gt;</span>  			<span class="hljs-comment">#此时默认22端口</span><br>ssh -p <span class="hljs-variable">&lt;端口号&gt;</span> <span class="hljs-variable">&lt;username&gt;</span><span class="hljs-meta">@&lt;服务器ip&gt;</span>   <span class="hljs-comment">#指定端口参数p</span><br></code></pre></td></tr></table></figure>
+
+<p>比如<code>ssh flag4@192.168.86.164</code></p>
+<p>这里就不演示了，该拿flag5了</p>
+<h3 id="4-Linux-find提权"><a href="#4-Linux-find提权" class="headerlink" title="4.Linux find提权"></a>4.Linux find提权</h3><h4 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h4><h5 id="Linux文件普通权限"><a href="#Linux文件普通权限" class="headerlink" title="Linux文件普通权限"></a>Linux文件普通权限</h5><p>r(read)读，数字表示：4</p>
 <p>w(write)写，数字表示：2</p>
 <p>x(execute)执行，数字表示：1</p>
 <h5 id="Linux文件特殊权限"><a href="#Linux文件特殊权限" class="headerlink" title="Linux文件特殊权限"></a>Linux文件特殊权限</h5><p>linux文件的三种特殊权限分别是：suid权限、sgid权限、sticky权限；其中suid权限作用于文件属主，sgid权限作用于属组上，sticky权限作用于other其他上。</p>
@@ -370,16 +458,25 @@
 <p><strong>添加和去除suid权限</strong>：</p>
 <p>suid权限的去除可以使用数字或字母的形式添加，如果使用数字，0表示去除权限，4表示添加权限，而且是在原权限的数字表达形式开头加0或4，字母形式下，suid权限使用s表示，增加权限u+s，移除权限u-s；</p>
 <p>以上摘自CSDN博主「MssGuo」<a target="_blank" rel="noopener" href="https://blog.csdn.net/MssGuo/article/details/120754324">的原创文章</a></p>
-<p><img src="4.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p><img src="22.png" srcset="/img/loading.gif" lazyload alt="1"></p>
 <p>现在成功赋予find命令suid，可以进行提权了</p>
-<p><img src="5.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p><img src="23.png" srcset="/img/loading.gif" lazyload alt="2"></p>
 <p><del>翻车了</del></p>
 <p>这里的坑就在于，利用find的exec执行命令，执行是以root的权限执行，之后却是低权限。原因在于其id上可以发现。</p>
 <p>划重点：<strong>默认情况下 bash 在执行时，如果发现 euid(effective有效uid) 和 uid 不配，会将 euid (即 suid) 强制重置为uid</strong></p>
 <p>因此需要用到参数： -p</p>
-<p><img src="6.png" srcset="/img/loading.gif" lazyload alt="3"></p>
-<p>可以看到，象征root的#已经显示出来了，且此时euid为root</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ·">find passwd -exec &quot;/bin/(ba)sh&quot; -p \;<br></code></pre></td></tr></table></figure>
+
+<p><img src="6.png" srcset="/img/loading.gif" lazyload alt="24"></p>
+<p>可以看到，象征root的<code>#</code>已经显示出来了，且此时euid为root</p>
 <p>此时反弹的shell就是root权限了</p>
+<p>好，那么好，演出开始</p>
+<p><img src="25.png" srcset="/img/loading.gif" lazyload alt="25"></p>
+<p>非法参数p，ok；</p>
+<p>bash不让用，无所谓</p>
+<p>#必须出来！！！</p>
+<p><img src="26.png" srcset="/img/loading.gif" lazyload alt="26"></p>
+<p><strong>congratulation！！！</strong></p>
 
                 
               </div>
@@ -389,15 +486,6 @@
               <div class="post-metas my-3">
   
   
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Linux/">#Linux</a>
-      
-        <a href="/tags/find%E6%8F%90%E6%9D%83/">#find提权</a>
-      
-    </div>
-  
 </div>
 
 
@@ -406,7 +494,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>find提权</div>
+      <div></div>
       <div>http://example.com/2023/08/13/DC-1/</div>
     </div>
     <div class="license-meta">
