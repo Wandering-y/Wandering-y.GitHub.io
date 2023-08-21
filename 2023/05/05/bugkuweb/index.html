@@ -20,7 +20,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="bugkuweb">
 <meta property="og:url" content="http://example.com/2023/05/05/bugkuweb/index.html">
-<meta property="og:site_name" content="ldy的站点~">
+<meta property="og:site_name" content="Ice  Age">
 <meta property="og:description" content="1.滑稽F12查看即可，又是考视力&#x3D; &#x3D;   2.计算器小学算数，答案是111，但是输入1之后就输入不进去了，直接改前端代码  把maxlength删了或者把1改大一点就行了，提交  3.GET 简单的代码审计，直接GET传参 1?what&#x3D;flag    4.Simple_SSTI_1页面提示我需要绕过一个叫flag的参数，然后F12说：你知道，在烧瓶里，我们经常设置一个se">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2023/05/05/bugkuweb/%E6%BB%91%E7%A8%BD.png">
@@ -63,7 +63,7 @@
   
   
   
-  <title>bugkuweb - ldy的站点~</title>
+  <title>bugkuweb - Ice  Age</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -443,7 +443,7 @@
 <p>打开wireshark，监听wlan，然后再开始刷</p>
 <p><img src="%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%862.png" srcset="/img/loading.gif" lazyload alt="社工-初步收集2"></p>
 <p>也算是考眼力吧，拿到账号密码了以为到此结束了，没想到不对，看着像base64编码，解码看看</p>
-<p><a href="mailto:&#x62;&#117;&#103;&#x6b;&#117;&#x6b;&#117;&#64;&#49;&#x36;&#51;&#46;&#x63;&#111;&#x6d;">&#x62;&#117;&#103;&#x6b;&#117;&#x6b;&#117;&#64;&#49;&#x36;&#51;&#46;&#x63;&#111;&#x6d;</a></p>
+<p><a href="mailto:&#x62;&#117;&#x67;&#x6b;&#117;&#107;&#117;&#64;&#49;&#54;&#51;&#x2e;&#99;&#111;&#x6d;">&#x62;&#117;&#x67;&#x6b;&#117;&#107;&#117;&#64;&#49;&#54;&#51;&#x2e;&#99;&#111;&#x6d;</a></p>
 <p>XSLROCPMNWWZQDZL</p>
 <p>怪不得有bugku@163的流量包，去网易邮箱看看，但是账号密码登录失败了，这里还有一个知识点：邮箱登录的方式，主流是两种，一种是密码登录，一种是授权码登录，官网提供的邮箱登录一般是账号+密码登录，第三方邮件系统登录的一般都是客户端+授权码登录。<br>很显然，我们解出来的那串base64不是密码，那么应该就是授权码了，网上wp是用foxmail，还有用QQ邮箱手机版的，都成功登录了，找到了一个邮件：</p>
 <p><img src="%E7%A4%BE%E5%B7%A5-%E5%88%9D%E6%AD%A5%E6%94%B6%E9%9B%863.png" srcset="/img/loading.gif" lazyload alt="社工-初步收集3"></p>
