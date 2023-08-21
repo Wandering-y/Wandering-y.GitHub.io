@@ -46,8 +46,9 @@
 <meta property="og:image" content="http://example.com/2023/08/19/DC-2/21.png">
 <meta property="og:image" content="http://example.com/2023/08/19/DC-2/22.png">
 <meta property="og:image" content="http://example.com/2023/08/19/DC-2/666.png">
+<meta property="og:image" content="http://example.com/2023/08/19/DC-2/888.png">
 <meta property="article:published_time" content="2023-08-19T04:38:45.000Z">
-<meta property="article:modified_time" content="2023-08-21T07:11:54.201Z">
+<meta property="article:modified_time" content="2023-08-21T08:09:48.054Z">
 <meta property="article:author" content="想有双手">
 <meta property="article:tag" content="Linux环境变量">
 <meta property="article:tag" content="Linux git提权">
@@ -245,7 +246,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.1k 字
         
       </span>
     
@@ -256,7 +257,7 @@
         
         
         
-          25 分钟
+          26 分钟
         
       </span>
     
@@ -363,18 +364,20 @@
 
 <p>登陆进去后，找找flag3吧</p>
 <p><img src="11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
-<p>两种方法，第一种，查看所有可用的命令</p>
+<p>查看所有可用的命令</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ·">compgen -c  <br></code></pre></td></tr></table></figure>
 
 <p><img src="12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
 <p>在最后发现了<code>vi</code>，可以用<code>vi</code>查看flag3的内容</p>
-<p>第二种，绕过rbash</p>
-<h4 id="绕过rbash"><a href="#绕过rbash" class="headerlink" title="绕过rbash"></a>绕过rbash</h4><p>rbash(Restricted bash，受限制的bash)，除此之外还有rksh和rsh</p>
+<p>“Poor old Tom is always running after Jerry. Perhaps he should su for all the stress he causes.”</p>
+<p>“Tom总是追着Jerry。或许Tom应该为他造成的压力而<code>su</code>”</p>
+<p>提到了su和Jerry，su应该是提示我们提权，Jerry应该是提示去看看Jerry的目录</p>
+<h4 id="绕过rbash"><a href="#绕过rbash" class="headerlink" title="绕过rbash"></a>绕过rbash</h4><p>既然要去jerry的家目录，就要换路径，但<code>cd </code>被限制了，不能用，此时要绕过rbash</p>
+<p>rbash(Restricted bash，受限制的bash)，除此之外还有rksh和rsh</p>
 <h5 id="1-环境变量绕过"><a href="#1-环境变量绕过" class="headerlink" title="1.环境变量绕过"></a>1.环境变量绕过</h5><p><img src="13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
-<p><code>cd ..</code>被限制了，不能用，执行</p>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arcade">BASH_CMDS[a]=<span class="hljs-regexp">/bin/</span>bash<br></code></pre></td></tr></table></figure>
 
-<p>然后再执行<code>a</code>就拿到了一个受限较小(cat还是不能用)的shell</p>
+<p>然后再执行<code>a</code>就拿到了一个受限较小(可以执行<code>cd</code>命令但<code>cat</code>还是不能用)的shell。</p>
 <h5 id="2-vi绕过"><a href="#2-vi绕过" class="headerlink" title="2.vi绕过"></a>2.vi绕过</h5><p>直接执行vi(后面跟不跟文件都行)，回车，写入</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ·">:set shell=/bin/bash  //这里shell这个名字不能改，是固定的<br></code></pre></td></tr></table></figure>
 
@@ -387,20 +390,17 @@
 <h5 id="3-更多绕过方式"><a href="#3-更多绕过方式" class="headerlink" title="3.更多绕过方式"></a>3.更多绕过方式</h5><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pf">python3 -c &#x27;import <span class="hljs-keyword">os</span>;<span class="hljs-keyword">os</span>.system(<span class="hljs-string">&quot;/bin/bash&quot;</span>);&#x27;<br></code></pre></td></tr></table></figure>
 
 <p>但靶机没有python，这个方法不适用此次渗透</p>
-<p>更多方法见0x05</p>
-<p>“Poor old Tom is always running after Jerry. Perhaps he should su for all the stress he causes.”</p>
-<p>“Tom总是追着Jerry。或许Tom应该为他造成的压力而<code>su</code>”</p>
-<p>提到了su和Jerry，su应该是提示我们提权，Jerry应该是提示去看看Jerry的目录</p>
+<p>更多方法见0x07</p>
 <h2 id="0x05-绕过rbash后"><a href="#0x05-绕过rbash后" class="headerlink" title="0x05 绕过rbash后"></a>0x05 绕过rbash后</h2><p>现在可以换目录了，去jerry的目录里看看</p>
 <p><img src="16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
 <p>找到flag4：</p>
 <p><img src="17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
-<p>“很高兴看到你已经走了这么远，但你还没有回家。     &#x2F;&#x2F;这里应该是指root的home目录<br>你仍然需要得到最终的标志（唯一真正重要的标志！！）。<br>这里没有提示-你现在只能靠自己了。：-）<br>快离开这里！！！！”</p>
+<p>“很高兴看到你已经走了这么远，但你还没有回家。     &#x2F;&#x2F;这里应该是指&#x2F;root<br>你仍然需要得到最终的flag（唯一真正重要的flag！！）。<br>这里没有提示-你现在只能靠自己了。：-）<br>快离开这里！！！！”</p>
 <p>因缺思厅</p>
 <p>陷入思考</p>
 <p>渗透的目的是什么？想到DC-1中提到的，必看三部曲，passwd，shadow，group，先看&#x2F;etc&#x2F;passwd：</p>
 <p><img src="18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
-<p>看完了并没有什么收获，前面提到了<code>su</code>，应该看看root下面有没有好东西，结果没有权限访问</p>
+<p>都看完了，并没有什么收获，前面提到了<code>su</code>，应该看看root下面有没有好东西，结果没有权限访问</p>
 <p>还是要提权</p>
 <h2 id="0x06-Linux-环境变量和git提权"><a href="#0x06-Linux-环境变量和git提权" class="headerlink" title="0x06 Linux 环境变量和git提权"></a>0x06 Linux 环境变量和git提权</h2><p>添加环境变量</p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir">(export) <span class="hljs-title class_">PATH</span>=<span class="hljs-variable">$PATH</span><span class="hljs-symbol">:/usr/bin</span><br>(export) <span class="hljs-title class_">PATH</span>=<span class="hljs-variable">$PATH</span><span class="hljs-symbol">:/bin</span><br></code></pre></td></tr></table></figure>
@@ -417,11 +417,16 @@
 <p>1、sudo git help config #在末行命令模式输入<br>!&#x2F;bin&#x2F;bash 或 !’sh’ #完成提权<br>2、sudo git -p help<br>!&#x2F;bin&#x2F;bash #输入!&#x2F;bin&#x2F;bash，即可打开一个用户为root的shell<br><img src="21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
 <p><code>#</code>出现，游戏结束</p>
 <p><img src="22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
-<h2 id="0x07-反思"><a href="#0x07-反思" class="headerlink" title="0x07 反思"></a>0x07 反思</h2><p>看过关于环境变量的解释后，我做了一次实验，我不加环境变量，我指定<code>su</code>的绝对路径，是否可行？</p>
+<h2 id="0x07-反思"><a href="#0x07-反思" class="headerlink" title="0x07 反思"></a>0x07 反思</h2><p>做完整个靶场下来，思路有点混乱，主要是我太菜了[狗头]</p>
+<p>看过关于环境变量的解释后，我做了一次实验，我不加环境变量，我指定<code>su</code>的绝对路径，是否可行？</p>
 <p><strong>答案是肯定的：</strong></p>
 <p><img src="666.png" srcset="/img/loading.gif" lazyload alt="666"></p>
 <p>所以前面环境变量只能说是方便我们渗透，并没有实现真正意义上的提权，也就算个绕过吧</p>
 <p>ps：修改的环境变量只在当前用户生效</p>
+<p>既然如此，我能不能直接一步到位，不绕过rbash？</p>
+<p>我尝试了一下，如果不绕过rbash，后果是这样的：</p>
+<p><img src="888.png" srcset="/img/loading.gif" lazyload alt="888"></p>
+<p>没有对PATH的写入权限，而且不能用<code>/</code>来指定绝对路径，所以还是很有必要的</p>
 <h2 id="0x08-参考"><a href="#0x08-参考" class="headerlink" title="0x08 参考"></a>0x08 参考</h2><p>1.<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/512201236#:~:text=%5Broot%40localhost%20~%5D%23%20echo%20%24PATH%20%2Fusr%2Flocal%2Fsbin%3A%2Fusr%2Fsbin%3A%2Fsbin%3A%2Fusr%2Flocal%2Fbin%3A%2Fusr%2Fbin%3A%2Fbin%3A%2Froot%2Fbin%20%E8%BF%99%E9%87%8C%E7%9A%84%20echo,%E5%91%BD%E4%BB%A4%E7%94%A8%E6%9D%A5%E8%BE%93%E5%87%BA%20PATH%20%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC%EF%BC%88%E8%BF%99%E9%87%8C%E7%9A%84%20%24%20%E6%98%AF%20PATH%20%E7%9A%84%E5%89%8D%E7%BC%80%E7%AC%A6%E5%8F%B7%EF%BC%89%EF%BC%8CPATH%20%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E5%86%85%E5%AE%B9%E6%98%AF%E7%94%B1%E4%B8%80%E5%A0%86%E7%9B%AE%E5%BD%95%E7%BB%84%E6%88%90%E7%9A%84%EF%BC%8C%E5%90%84%E7%9B%AE%E5%BD%95%E4%B9%8B%E9%97%B4%E7%94%A8%E5%86%92%E5%8F%B7%E2%80%9C%3A%E2%80%9D%E9%9A%94%E5%BC%80%E3%80%82">Linux PATH环境变量及作用（初学者必读）</a></p>
 <p>2.<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1680551">RBash - 受限的Bash绕过</a></p>
 <p>3.CSDN博主「小郭学安全」的<a target="_blank" rel="noopener" href="https://blog.csdn.net/G_Fu_Q/article/details/116276096">原创文章</a></p>
