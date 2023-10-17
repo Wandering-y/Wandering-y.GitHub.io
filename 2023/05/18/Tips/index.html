@@ -24,7 +24,7 @@
 <meta property="og:description" content="远程文件包含在进行文件包含时，不一定非要包含目标主机的文件，也可以包含自己电脑上的文件，举个例子： 先在本地创建一个网站，名字随便，这里起名test.com，端口81，文件包含的文件名是1.php，内容是： 123&lt;?phpinclude($_GET[&amp;#x27;file&amp;#x27;]);?&gt;  本地被包含的文件名为1.txt，内容是： 123&lt;?phpphpinfo();?&amp;g">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-18T06:52:02.000Z">
-<meta property="article:modified_time" content="2023-09-30T01:39:05.916Z">
+<meta property="article:modified_time" content="2023-10-09T03:49:33.036Z">
 <meta property="article:author" content="想有双手">
 <meta property="article:tag" content="远程文件包含">
 <meta property="article:tag" content="sql绕过">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.1k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          19 分钟
+          18 分钟
         
       </span>
     
@@ -427,7 +427,6 @@
 <p>可以拿来绕过xss</p>
 <p><a target="_blank" rel="noopener" href="https://wooyun.js.org/drops/jother%E7%BC%96%E7%A0%81%E4%B9%8B%E8%B0%9C.html">参考文章</a></p>
 <hr>
-<h3 id="host-only"><a href="#host-only" class="headerlink" title="host-only"></a>host-only</h3><p>今天复现存储型xss时，靶场是仅主机模式，xss平台在本机。发现js文件中接收cookie的地址，既可以用vmnet1(仅主机)下的ip，也能用xss平台的域名</p>
 
                 
               </div>
