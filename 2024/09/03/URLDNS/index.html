@@ -35,7 +35,7 @@
 <meta property="og:image" content="http://example.com/2024/09/03/URLDNS/10.png">
 <meta property="og:image" content="http://example.com/2024/09/03/URLDNS/11.png">
 <meta property="article:published_time" content="2024-09-03T08:37:11.000Z">
-<meta property="article:modified_time" content="2024-09-03T14:25:11.148Z">
+<meta property="article:modified_time" content="2024-09-03T14:32:54.181Z">
 <meta property="article:author" content="想有双手">
 <meta property="article:tag" content="反序列化">
 <meta name="twitter:card" content="summary_large_image">
@@ -319,8 +319,8 @@
 <p>当key不为null，将调用key的hashCode方法。如果这里我的key就是一个url对象，那不就是调用url的hashCode方法吗？</p>
 <p>到这里就很清晰了，HashMap就是入口点(kick-off)，URL的equals和hashCode是触发点(sink)</p>
 <p><strong>但是</strong></p>
-<p>其实还有问题：第一，在使用 HashMap 的 put 方法时，也是调用 putVal 方法(图10)，会对 key 进行 hash，触发解析。如果我们不想在生成 payload 时触发 DNS 解析，就要使用反射将值放进去。</p>
-<p>第二， URL 对象有一个属性 hashCode，默认是 -1，使用hashCode 方法计算时会在 hashCode 属性中缓存已经计算过的值，如果再次计算将直接返回值，不会在触发 URLStreamHandler 的 hashCode 方法，也就不会触发漏洞。所以我们需要在生成的 HashMap 中的URL 参数的 hashCode 值在反序列化时为 -1，而刚才说过，如果使用 put 方法，会调用一次 key 的 hash 计算，也就是 URL 的hashCode 方法，这样就把 hashCode 缓存了，在反序列化时就不会触发 URLStreamHandler 的 hashCode 方法以及后面的逻辑。所以有两种思路解决这个问题：</p>
+<p>其实还有问题：第一，在使用 HashMap 的 put 方法时，也是调用 putVal 方法(图10)，会对 key 进行 hash，触发解析。如果我们不想在生成 payload 时触发 DNS 解析，就要使用反射将值放进去。（感觉无所谓）</p>
+<p><strong>第二</strong>（主要原因）， URL 对象有一个属性 hashCode，默认是 -1，使用hashCode 方法计算时会在 hashCode 属性中缓存已经计算过的值，如果再次计算将直接返回值，不会在触发 URLStreamHandler 的 hashCode 方法，也就不会触发漏洞。所以我们需要在生成的 HashMap 中的URL 参数的 hashCode 值在反序列化时为 -1，而刚才说过，如果使用 put 方法，会调用一次 key 的 hash 计算，也就是 URL 的hashCode 方法，这样就把 hashCode 缓存了，在反序列化时就不会触发 URLStreamHandler 的 hashCode 方法以及后面的逻辑。所以有两种思路解决这个问题：</p>
 <ul>
 <li>如果使用 HashMap 的 put 方法，将 URL 对象放入 Map 的 key 中之前，先将其 URL 对象 hashCode 进行修改，使其不等于 -1，这样就不会触发 DNS 查询，放入之后，再使用反射将 URL 对象中的 hashCode 修改为 -1，反序列化的时候就可以正常触发了。 </li>
 <li>直接反射调用 HashMap 的 putVal 方法绕过 hash 计算。（由于 JDK 1.7 中方法名不一样，细节也不一样，所以不具有通用性）</li>
